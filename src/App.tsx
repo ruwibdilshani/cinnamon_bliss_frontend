@@ -10,16 +10,14 @@ import {store} from "./store/store.tsx";
 import {RootLayout} from "./components/RootLayout.tsx";
 import {Home} from "./pages/Home.tsx";
 import {Error} from "./components/Error.tsx";
-
-
-
-
-
-
+import {EmployeePage} from "./pages/EmployeePage.tsx";
+import {SupplierPage} from "./pages/SupplierPage.tsx";
+import {ProductPage} from "./pages/ProductPage.tsx";
+import {StockPage} from "./pages/StockPage.tsx";
+import {LogPage} from "./pages/LogPage.tsx";
+import {VehiclePage} from "./pages/VehiclePage.tsx";
 
 function App() {
-
-
   const routes = createBrowserRouter([
 
 
@@ -28,6 +26,12 @@ function App() {
       element: <RootLayout/>,
       children: [
         {path: '/home', element: <Home/>},
+          {path: '/employee', element: <EmployeePage/>},
+          {path: '/supplier', element: <SupplierPage/>},
+          {path: '/product', element: <ProductPage/>},
+          {path: '/stock', element: <StockPage/>},
+          {path: '/vehicle', element: <VehiclePage/>},
+          {path: '/log', element: <LogPage/>},
 
 
 
