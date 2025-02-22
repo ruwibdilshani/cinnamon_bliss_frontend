@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 import {useEffect, useState} from "react";
 
 import {AppDispatch} from "../store/store.tsx";
-import {Supplier} from "../model/Suppliers.ts";
+import {Supplier} from "../model/Supplier.ts";
 import DeleteModal from "../components/DeleteModal.tsx";
 import {deleteSupplier, getAllSuppliers, saveSupplier, updateSupplier} from "../slice/SupplierSlice.ts";
 import AddSupplier from "../components/saveModel/AddSupllier.tsx";

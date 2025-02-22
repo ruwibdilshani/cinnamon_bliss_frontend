@@ -2,7 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 
 import * as React from "react";
-import {Supplier} from "../../model/Suppliers.ts";
+import {Supplier} from "../../model/Supplier.ts";
 
 
 

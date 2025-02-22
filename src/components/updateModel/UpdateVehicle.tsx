@@ -1,63 +1,65 @@
 import {useEffect, useState} from "react";
 import { motion } from "framer-motion";
-
-
-import * as React from "react";
-import {Supplier} from "../../model/Supplier.ts";
+import {Vehicle} from "../../model/Vehicle.ts";
+import {} from "../../util/util.ts";
+import {Employee} from "../../model/Employee.ts";
+import {useSelector} from "react-redux";
 
 
 interface UpdateModalProps{
     isModalOpen: boolean;
     setIsModalOpen: (open: boolean) => void;
-    onUpdate: (updatedSupllier: Supplier) => void;
-    supplier:Supplier;
+    onUpdate: (updateVehicle: Vehicle) => void;
+    vehicle:Vehicle;
 }
 
-function UpdateSupplier({ isModalOpen, setIsModalOpen, onUpdate, supplier}: Readonly<UpdateModalProps>)  {
+function UpdateVehicle({ isModalOpen, setIsModalOpen, onUpdate, vehicle}: Readonly<UpdateModalProps>)  {
+
+    const employeeMember : Employee[] = useSelector((state:  {employee:Employee[]} ) => state.employee);
+
     const [formData, setFormData] = useState({
-        firstName: supplier.firstName,
-        lastName: supplier.lastName,
-        gender: supplier.gender,
-        contactNo: supplier.contactNo,
-        email: supplier.email,
-        addressLine1: supplier.addressLine1,
-        postalCode: supplier.postalCode,
+        licensePlate: vehicle.licensePlate,
+        model: vehicle.model,
+        capacity: vehicle.capacity,
+        available: vehicle.available,
+        employeeID: vehicle.employeeID,
     });
 
     useEffect(() => {
         setFormData({
-            firstName: supplier.firstName,
-            lastName: supplier.lastName,
-            gender: supplier.gender,
-            contactNo: supplier.contactNo,
-            email: supplier.email,
-            addressLine1: supplier.addressLine1,
-            postalCode: supplier.postalCode,
+            licensePlate: vehicle.licensePlate,
+            model: vehicle.model,
+            capacity: vehicle.capacity,
+            available: vehicle.available,
+            employeeID: vehicle.employeeID
         });
     }, [isModalOpen]);
 
     function handleInputChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
         const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
+
+        setFormData((prevData) => ({
+            ...prevData,
+            [name]: value,
+            available: name === "employeeID" && (value === "" || value === "None") ? true : false,
+        }));
     }
+
 
     function handleUpdate() {
-        const updatedSuppplier = {
-            ...supplier,
-            firstName: formData.firstName,
-            lastName: formData.lastName,
-            gender: formData.gender,
-            addressLine1: formData.addressLine1,
-            postalCode: formData.postalCode,
-            contactNumber: formData.contactNo,
-            email: formData.email,
+        console.log("Update",formData);
 
+        const updatedStaff = {
+            ...vehicle,
+            licensePlate: formData.licensePlate,
+            model: formData.model,
+            capacity: formData.capacity,
+            available: formData.available,
+            employeeID: formData.employeeID,
         };
-        onUpdate(updatedSuppplier);
+        onUpdate(updatedStaff);
         setIsModalOpen(false);
     }
-
-
 
     return (
         isModalOpen && (
@@ -97,20 +99,19 @@ function UpdateSupplier({ isModalOpen, setIsModalOpen, onUpdate, supplier}: Read
                     }}
                 >
 
-                    <h1 className="text-center text-xl font-semibold mb-5">Add Supplier Member</h1>
+                    <h1 className="text-center text-xl font-semibold mb-5">Add Vehicle</h1>
 
                     <div className="overflow-y-auto h-[60vh] custom-scrollbar p-2">
-                        {/* First Name and Last Name */}`
                         <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                             <div className="sm:col-span-3">
-                                <label htmlFor="first-name" className="block text-sm font-medium text-gray-900">First
+                                <label htmlFor="licenseplate" className="block text-sm font-medium text-gray-900">First
                                     name</label>
                                 <div className="mt-2">
                                     <input
                                         type="text"
-                                        name="firstName"
-                                        id="first-name"
-                                        value={formData.firstName}
+                                        name="licensePlate"
+                                        id="licenseplate"
+                                        value={formData.licensePlate}
                                         onChange={handleInputChange}
                                         required
                                         className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-2 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-600 hover:outline-green-500 sm:text-sm"
@@ -118,14 +119,14 @@ function UpdateSupplier({ isModalOpen, setIsModalOpen, onUpdate, supplier}: Read
                                 </div>
                             </div>
                             <div className="sm:col-span-3">
-                                <label htmlFor="last-name" className="block text-sm font-medium text-gray-900">Last
+                                <label htmlFor="model" className="block text-sm font-medium text-gray-900">Last
                                     name</label>
                                 <div className="mt-2">
                                     <input
                                         type="text"
-                                        name="lastName"
-                                        id="last-name"
-                                        value={formData.lastName}
+                                        name="model"
+                                        id="model"
+                                        value={formData.model}
                                         onChange={handleInputChange}
                                         required
                                         className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-2 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-600 hover:outline-green-500 sm:text-sm"
@@ -134,99 +135,52 @@ function UpdateSupplier({ isModalOpen, setIsModalOpen, onUpdate, supplier}: Read
                             </div>
                         </div>
 
-                        {/*   Gender */}
                         <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                             <div className="sm:col-span-3">
-                                <label htmlFor="gender"
-                                       className="block text-sm font-medium text-gray-900">Gender</label>
+                                <label htmlFor="capacity" className="block text-sm font-medium text-gray-900">Capacity</label>
                                 <div className="mt-2">
                                     <select
-                                        name="gender"
-                                        id="gender"
-                                        value={formData.gender}
+                                        name="capacity"
+                                        id="capacity"
+                                        value={formData.capacity}
                                         onChange={handleInputChange}
                                         required
                                         className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-2 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-600 hover:outline-green-500 sm:text-sm"
                                     >
-                                        <option value="" disabled>Select Gender</option>
-                                        <option value="MALE">MALE</option>
-                                        <option value="FEMALE">FEMALE</option>
+                                        <option value="" disabled>Select Capacity</option>
+                                        <option value="5Kg">5Kg</option>
+                                        <option value="10Kg">10Kg</option>
+                                        <option value="15Kg">15Kg</option>
+                                        <option value="25Kg">25Kg</option>
+                                        <option value="30Kg">30Kg</option>
+                                        <option value="40Kg">40Kg</option>
+                                        <option value="OTHER">OTHER</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
 
-                        {/* Date of Birth and Contact Number */}
                         <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                            <div className="sm:col-span-3">
-                                <label htmlFor="contact-number" className="block text-sm font-medium text-gray-900">Contact
-                                    Number</label>
+                            <div className="sm:col-span-3 py-5">
+                                <label htmlFor="employeeID" className="block text-sm font-medium text-gray-900">Employee
+                                    ID</label>
                                 <div className="mt-2">
-                                    <input
-                                        type="tel"
-                                        name="contactNo"
-                                        id="contact-number"
-                                        value={formData.contactNo}
+                                    <select
+                                        name="employeeID"
+                                        id="employeeID"
+                                        value={formData.employeeID}
                                         onChange={handleInputChange}
                                         required
                                         className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-2 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-600 hover:outline-green-500 sm:text-sm"
-                                    />
-                                </div>
-                            </div>
-                        </div>
+                                    >
+                                        <option value="" disabled>Select Supplier</option>
+                                        <option value="None" >None</option>
 
-                        {/* Email and Role */}
-                        <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                            <div className="sm:col-span-3">
-                                <label htmlFor="email" className="block text-sm font-medium text-gray-900">Email</label>
-                                <div className="mt-2">
-                                    <input
-                                        type="email"
-                                        name="email"
-                                        id="email"
-                                        value={formData.email}
-                                        onChange={handleInputChange}
-                                        required
-                                        className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-2 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-600 hover:outline-green-500 sm:text-sm"
-                                    />
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Address Fields */}
-                        <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                            <div className="sm:col-span-3">
-                                <label htmlFor="street-address" className="block text-sm font-medium text-gray-900">
-                                    Address</label>
-                                <div className="mt-2">
-                                    <input
-                                        type="text"
-                                        name="addressLine1"
-                                        id="street-address"
-                                        value={formData.addressLine1}
-                                        onChange={handleInputChange}
-                                        required
-                                        className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-2 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-600 hover:outline-green-500 sm:text-sm"
-                                    />
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Postal Code and Joined Date */}
-                        <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                            <div className="sm:col-span-3">
-                                <label htmlFor="postal-code" className="block text-sm font-medium text-gray-900">Postal
-                                    Code</label>
-                                <div className="mt-2">
-                                    <input
-                                        type="text"
-                                        name="postalCode"
-                                        id="postal-code"
-                                        value={formData.postalCode}
-                                        onChange={handleInputChange}
-                                        required
-                                        className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-2 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-600 hover:outline-green-500 sm:text-sm"
-                                    />
+                                        {employeeMember.map((employee) => (
+                                            <option value={employee.employeeID}>{employee.employeeID}
+                                            </option>
+                                        ))}
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -264,4 +218,4 @@ function UpdateSupplier({ isModalOpen, setIsModalOpen, onUpdate, supplier}: Read
     );
 }
 
-export default UpdateSupplier;
+export default UpdateVehicle;

@@ -6,11 +6,11 @@ import axios from "axios";
 const initialState : Vehicle[] = [];
 
 const api = axios.create({
-    baseURL: "http://localhost:3000/vehicles"
+    baseURL: "http://localhost:3000/vehicle"
 });
 
 export const saveVehicle = createAsyncThunk(
-    'vehicles/saveVehicle',
+    'vehicle/saveVehicle',
     async (vehicle: Vehicle) => {
         console.log("Slice", vehicle);
         try {
@@ -23,7 +23,7 @@ export const saveVehicle = createAsyncThunk(
 );
 
 export const updateVehicle = createAsyncThunk(
-    'vehicles/updateVehicle',
+    'vehicle/updateVehicle',
     async (vehicle: Vehicle) => {
         try {
             const response = await api.put(`/update/${vehicle.licensePlate}`, vehicle);
@@ -35,7 +35,7 @@ export const updateVehicle = createAsyncThunk(
 );
 
 export const deleteVehicle = createAsyncThunk(
-    'vehicles/removeVehicle',
+    'vehicle/removeVehicle',
     async (licensePlate: string) => {
         try {
             const response = await api.delete(`/remove/${licensePlate}`);
@@ -47,7 +47,7 @@ export const deleteVehicle = createAsyncThunk(
 );
 
 export const getAllVehicles = createAsyncThunk(
-    'vehicles/getAllVehicles',
+    'vehicle/getAllVehicles',
     async () => {
         try {
             const response = await api.get('/all');
@@ -96,6 +96,7 @@ const vehicleSlice = createSlice({
             .addCase(deleteVehicle.pending, (state, action) => {
                 alert("Vehicle Deleted Successfully");
             });
+
         builder
             .addCase(getAllVehicles.fulfilled, (state, action) => {
                 action.payload.forEach((vehicle: Vehicle) => {

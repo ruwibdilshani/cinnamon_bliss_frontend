@@ -12,7 +12,7 @@ function Navigation({ isOpen}) {
         { id: 'employee', label: 'Employee', icon: 'fa-user', path: '/employee' },
         { id: 'supplier', label: 'Supplier', icon: 'fa-truck', path: '/supplier' },
         { id: 'product', label: 'Product', icon: 'fa-box', path: '/product' },
-        { id: 'stock', label: 'Stock', icon: 'fa-warehouse', path: '/stock' },
+        { id: 'cinnamonStock', label: 'Stock', icon: 'fa-warehouse', path: '/stock' },
         { id: 'vehicle', label: 'Vehicle', icon: 'fa-car', path: '/vehicle' },
         { id: 'log', label: 'Add Log', icon: 'fa-file-alt', path: '/log' },
 

@@ -1,7 +1,7 @@
 
 import axios from "axios";
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {Supplier} from "../model/Suppliers.ts";
+import {Supplier} from "../model/Supplier.ts";
 
 
 

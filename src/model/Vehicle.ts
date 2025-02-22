@@ -3,17 +3,17 @@ export class Vehicle {
     vehicleID!: string;
     licensePlate!: string;
     model!: string;
-    capacity!:string;
+    capacity!:number;
     available! : boolean;
-    employeeID!: string;
+    employeeID!: string | null;
 
     constructor(
         vehicleID: string,
         licensePlate: string,
         model: string,
-        capacity: string,
+        capacity: number,
         available: boolean,
-        employeeID: string
+        employeeID: string | null
     ) {
         this.vehicleID = vehicleID;
         this.licensePlate = licensePlate;
