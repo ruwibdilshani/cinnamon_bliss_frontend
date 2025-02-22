@@ -2,7 +2,8 @@ import {configureStore} from "@reduxjs/toolkit";
 import employeeSlice from "../slice/EmployeeSlice.ts";
 import supplierSlice from "../slice/SupplierSlice.ts";
 import vehicleSlice from "../slice/VehicleSlice.ts";
-import {cinnamonStockSlice} from "../slice/StockSlice.ts";
+import cinnamonStockSlice from "../slice/StockSlice.ts";
+import productSlice from "../slice/ProductSlice.ts";
 
 
 export const store = configureStore({
@@ -11,6 +12,7 @@ export const store = configureStore({
         supplier: supplierSlice,
         vehicle: vehicleSlice,
         cinnamonStock: cinnamonStockSlice,
+        product : productSlice,
 
 
     },
