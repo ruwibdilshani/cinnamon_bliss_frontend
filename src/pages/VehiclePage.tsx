@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 
 import {useEffect, useState} from "react";
 
-import {AppDispatch} from "../store/store.tsx";
+import {AppDispatch, RootState} from "../store/store.tsx";
 import DeleteModal from "../components/DeleteModal.tsx";
 
 import TableData from "../components/TableData.tsx";
@@ -19,7 +19,7 @@ import AddVehicle from "../components/saveModel/AddVehicle.tsx";
 
 
 export function VehiclePage() {
-    const vehicleMember : Vehicle[] = useSelector((state:  {vehicle:Vehicle[]} ) => state.vehicle);
+    const vehicleMember : Vehicle[] = useSelector((state:  RootState ) => state.vehicle);
 
     const vehicleHeaders = ['LicensePlate','Model', 'Capacity', 'Available', 'EmployeeID','Action'];
     const dispatch = useDispatch<AppDispatch>();
@@ -85,7 +85,7 @@ export function VehiclePage() {
                 visible={t.visible}
                 onDelete={() => {
                     toast.dismiss(t.id);
-                    dispatch(deleteVehicle(vehicle.vehicleID));
+                    dispatch(deleteVehicle(vehicle.licensePlate));
 
                     toast.success(
                         <div className="flex items-center space-x-2 ">

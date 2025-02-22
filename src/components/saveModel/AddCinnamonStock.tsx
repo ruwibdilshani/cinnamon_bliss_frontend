@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import * as React from "react";
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {AppDispatch} from "../../store/store.tsx";
+import {AppDispatch, RootState} from "../../store/store.tsx";
 import {CinnamonStock} from "../../model/CinnamonStock.ts";
 import {getAllSuppliers} from "../../slice/SupplierSlice.ts";
 import {Product} from "../../model/Product.ts";
@@ -20,23 +20,17 @@ interface AddCinnamonStockProps{
 
 function AddCinnamonStock({ isModalOpen, setIsModalOpen, onSave }: Readonly<AddCinnamonStockProps>){
 
-    const supplierMember : Supplier[] = useSelector((state : {suppliers : Supplier[]}) => state.suppliers)
-    const products : Product [] = useSelector((state : {product : Product[]}) => state.product)
+    const supplierMember : Supplier[] = useSelector((state : RootState) => state.supplier)
+    const products : Product [] = useSelector((state : RootState) => state.product)
     // getAllCinnamonStock
 
     const dispatch = useDispatch<AppDispatch>();  // A hook to access the dispatch function from the Redux store
 
     useEffect(() => {
-        if (!supplierMember || supplierMember.length === 0) {
-            dispatch(getAllSuppliers());
-        }
-    }, [dispatch, supplierMember]);
-
-    useEffect(() => {
         if (!products || products.length === 0) {
             dispatch(getAllProducts());
         }
-    }, [dispatch, products]);
+    }, [dispatch]);
 
 
     const [formData, setFormData] = useState({
@@ -139,9 +133,10 @@ function AddCinnamonStock({ isModalOpen, setIsModalOpen, onSave }: Readonly<AddC
                                     required
                                     className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-2 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-600 hover:outline-green-500 sm:text-sm"
                                 >
+                                    {/*+" "+{supplier.firstName}*/}
                                     <option value="" disabled>Select Supplier</option>
                                     {supplierMember.map((supplier) => (
-                                        <option value={supplier.supplierID}>{supplier.supplierID} +" "+{supplier.firstName}
+                                        <option value={supplier.supplierID}>{supplier.supplierID}
                                         </option>
                                     ))}
                                 </select>
@@ -157,6 +152,7 @@ function AddCinnamonStock({ isModalOpen, setIsModalOpen, onSave }: Readonly<AddC
                                     name="supplierName"
                                     id="supplierName"
                                     readOnly={true} //meka dmm input field read krnn witrai
+                                    onChange={handleInputChange}
                                     className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-2 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-600 hover:outline-green-500 sm:text-sm"
                                 />
                             </div>
@@ -167,6 +163,7 @@ function AddCinnamonStock({ isModalOpen, setIsModalOpen, onSave }: Readonly<AddC
                                 Code</label>
                             <div className="mt-2">
                                 <select
+
                                     name="batchCode"
                                     id="batchCode"
                                     value={formData.batchCode}
@@ -174,9 +171,10 @@ function AddCinnamonStock({ isModalOpen, setIsModalOpen, onSave }: Readonly<AddC
                                     required
                                     className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-2 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-600 hover:outline-green-500 sm:text-sm"
                                 >
+                                    {/*+" / "+product.name*/}
                                     <option value="" disabled>Select Product Type</option>
                                     {products.map((product) => (
-                                        <option value={product.batchCode}>{product.batchCode+" / "+product.name}
+                                        <option value={product.batchCode}>{product.batchCode}
                                         </option>
                                     ))}
                                 </select>
@@ -184,14 +182,14 @@ function AddCinnamonStock({ isModalOpen, setIsModalOpen, onSave }: Readonly<AddC
                         </div>
 
                         <div className="sm:col-span-3 py-5">
-                            <label htmlFor="type" className="block text-sm font-medium text-gray-900">Type
-                                </label>
+                            <label htmlFor="type" className="block text-sm font-medium text-gray-900">Types
+                            </label>
                             <div className="mt-2">
                                 <input
                                     type="text"
                                     name="type"
                                     id="type"
-                                    disabled={true}
+                                    value={formData.type}
                                     onChange={handleInputChange}
                                     required
                                     className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-2 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-600 hover:outline-green-500 sm:text-sm"
@@ -201,7 +199,7 @@ function AddCinnamonStock({ isModalOpen, setIsModalOpen, onSave }: Readonly<AddC
 
                         <div className="sm:col-span-3 py-5">
                             <label htmlFor="quantity" className="block text-sm font-medium text-gray-900">Quantity
-                                </label>
+                            </label>
                             <div className="mt-2">
                                 <input
                                     type="number"

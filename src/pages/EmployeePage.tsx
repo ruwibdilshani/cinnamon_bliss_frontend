@@ -1,6 +1,6 @@
 import {motion} from "framer-motion";
 import {useEffect, useState} from "react";
-import {AppDispatch} from "../store/store.tsx";
+import {AppDispatch, RootState} from "../store/store.tsx";
 import {useDispatch, useSelector} from "react-redux";
 import { Employee } from "../model/Employee.ts";
 import {deleteEmployee, getAllEmployees, saveEmployee, updateEmployee} from "../slice/EmployeeSlice.ts";
@@ -12,9 +12,10 @@ import UpdateEmployee from "../components/updateModel/UpdateEmployee.tsx";
 import TableData from "../components/TableData.tsx";
 
 export function EmployeePage() {
+    const employeeMember : Employee[] = useSelector((state: RootState ) => state.employee);
 
     const employeeHeaders = ['Name', 'Role', 'Email', 'Contact No', 'Address', 'Actions'];
-    const dispatch = useDispatch<AppDispatch>();  // A hook to access the dispatch function from the Redux store
+    const dispatch = useDispatch<AppDispatch>();
 
 
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -65,7 +66,7 @@ export function EmployeePage() {
 
     }
 
-    const employeeMember : Employee[] = useSelector((state:  {employee:Employee[]} ) => state.employee);
+
 
 
 
@@ -97,7 +98,7 @@ export function EmployeePage() {
         if (!employeeMember || employeeMember.length === 0) {
             dispatch(getAllEmployees());
         }
-    }, [dispatch]);
+    }, [dispatch,employeeMember]);
 
 
     return (

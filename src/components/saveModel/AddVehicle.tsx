@@ -16,7 +16,7 @@ function AddVehicle({ isModalOpen, setIsModalOpen, onSave }: Readonly<AddVehicle
     const [formData, setFormData] = useState({
         licensePlate: "",
         model: "",
-        capacity: 0,
+        capacity: "0",
         available: true,
         employeeID: null
     });

@@ -1,5 +1,8 @@
 import { motion } from "framer-motion";
 import {Vehicle} from "../../model/Vehicle.ts";
+import {Employee} from "../../model/Employee.ts";
+import {useSelector} from "react-redux";
+import {RootState} from "../../store/store.tsx";
 
 
 interface ViewVehicleProps {
@@ -9,6 +12,8 @@ interface ViewVehicleProps {
 }
 
 function ViewVehicle({ isOpenModal, setIsOpenModal, vehicle }: Readonly<ViewVehicleProps>) {
+
+    const employeeMember : Employee[] = useSelector((state: RootState ) => state.employee);
     return (
         isOpenModal && (
             <motion.div
@@ -97,13 +102,20 @@ function ViewVehicle({ isOpenModal, setIsOpenModal, vehicle }: Readonly<ViewVehi
                                 <div className="mt-2">
                                     <input
                                         type="text"
-                                        value={vehicle.employeeID}
+                                        value={
+                                            vehicle.employeeID
+                                                ? `${vehicle.employeeID} / ${employeeMember.find(emp => emp.employeeID === vehicle.employeeID)?.firstName || "Unknown"} ${employeeMember.find(emp => emp.employeeID === vehicle.employeeID)?.lastName || ""}`.trim()
+                                                : "Not Allocated"
+                                        }
                                         readOnly
-                                        className="block w-full rounded-md bg-white px-3 py-2 text-base text-gray-900 sm:text-sm outline outline-2 -outline-offset-1 outline-gray-300"
+                                        className={`block w-full rounded-md bg-white px-3 py-2 text-base text-gray-900 sm:text-sm outline outline-2 -outline-offset-1 ${
+                                            vehicle.employeeID ? "outline-green-500" : "outline-red-500"
+                                        }`}
                                     />
                                 </div>
                             </div>
                         </div>
+
 
                     </div>
 

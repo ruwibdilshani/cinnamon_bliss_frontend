@@ -3,7 +3,7 @@ export class Vehicle {
     vehicleID!: string;
     licensePlate!: string;
     model!: string;
-    capacity!:number;
+    capacity!:string;
     available! : boolean;
     employeeID!: string | null;
 
@@ -11,7 +11,7 @@ export class Vehicle {
         vehicleID: string,
         licensePlate: string,
         model: string,
-        capacity: number,
+        capacity: string,
         available: boolean,
         employeeID: string | null
     ) {

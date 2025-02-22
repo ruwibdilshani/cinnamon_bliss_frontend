@@ -2,7 +2,7 @@ import {motion} from "framer-motion";
 import {useEffect, useState} from "react";
 import toast from "react-hot-toast";
 import {useDispatch, useSelector} from "react-redux";
-import {AppDispatch} from "../store/store.tsx";
+import {AppDispatch, RootState} from "../store/store.tsx";
 import {formatDate} from "../util/util.ts";
 import {CinnamonStock} from "../model/CinnamonStock.ts";
 import {deleteCinnamonStock, getAllCinnamonStock, saveCinnamonStock, updateCinnamonStock} from "../slice/StockSlice.ts";
@@ -17,8 +17,8 @@ import UpdateCinnamonStock from "../components/updateModel/UpdateCinnamonStock.t
 
 export function StockPage() {
 
-    const cinnamonStock : CinnamonStock [] = useSelector((state: {stocks : CinnamonStock[]}) => state.stocks)
-    const supplierMember : Supplier[] = useSelector((state : {suppliers : Supplier[]}) => state.suppliers)
+    const cinnamonStock : CinnamonStock [] = useSelector((state: RootState) => state.cinnamonStock)
+    const supplierMember : Supplier[] = useSelector((state : RootState) => state.supplier)
 
     const stockCinnamonHeaders = ['StockID', 'SupplierID', 'Supplier Name', 'Quantity/KG', 'Received Date', 'Actions'];
 
@@ -27,7 +27,7 @@ export function StockPage() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isViewModalOpen, setIsViewModalOpen] = useState(false);
     const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
-    const [selectedCinnmonStock, setSelectedRawMaterial] = useState<CinnamonStock | null>(null);
+    const [selectedCinnmonStock, setSelectedStockMaterial] = useState<CinnamonStock | null>(null);
 
 
     const renderStockRow = (cinnamonStocks?: CinnamonStock) => {
@@ -38,7 +38,6 @@ export function StockPage() {
                 <div className="p-2 truncate">{cinnamonStocks.stockID}</div> // name eka dnna
                 <div className="p-2 truncate">{cinnamonStocks.supplierID}</div>
                 <div className="p-2 truncate">{
-
                     supplierMember.filter((supplier) => supplier.supplierID === cinnamonStocks.supplierID).map((filteredSupplier) => {
                         return filteredSupplier.firstName + " " + filteredSupplier.lastName;
                     })
@@ -58,12 +57,12 @@ export function StockPage() {
     }
 
     function handleViewStock(newStock : CinnamonStock) {
-        setSelectedRawMaterial(newStock);
+        setSelectedStockMaterial(newStock);
         setIsViewModalOpen(true);
     }
 
     function openUpdateModal(newStock : CinnamonStock) {
-        setSelectedRawMaterial(newStock);
+        setSelectedStockMaterial(newStock);
         setIsUpdateModalOpen(true);
     }
 
@@ -85,7 +84,6 @@ export function StockPage() {
         if (!cinnamonStock || cinnamonStock.length === 0) {
             dispatch(getAllCinnamonStock());
         }
-
     }, [dispatch]);
 
 
@@ -166,10 +164,10 @@ export function StockPage() {
                     />
                 )}
 
-                {/*/!*table*!/*/}
-                {/*<TableData data={cinnamonStocks} headers={stockCinnamonHeaders} renderRow={renderStockRow}*/}
-                {/*           handleView={handleViewStock} handleUpdate={openUpdateModal} handleDelete={handleDeleteStocks}*/}
-                {/*></TableData>*/}
+                {/*table*/}
+                <TableData data={cinnamonStock} headers={stockCinnamonHeaders} renderRow={renderStockRow}
+                           handleView={handleViewStock} handleUpdate={openUpdateModal} handleDelete={handleDeleteStocks}
+                ></TableData>
             </div>
 
 

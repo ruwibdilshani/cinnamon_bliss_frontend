@@ -25,11 +25,6 @@ const supplierMember : Supplier[] = useSelector((state : {suppliers : Supplier[]
 const products : Product [] = useSelector((state : {product : Product[]}) => state.product)
     const dispatch = useDispatch<AppDispatch>();
 
-useEffect(() => {
-    if (!supplierMember || supplierMember.length === 0) {
-        dispatch(getAllSuppliers());
-    }
-}, [dispatch, supplierMember]);
 
 useEffect(() => {
     if (!products || products.length === 0) {

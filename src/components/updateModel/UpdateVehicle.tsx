@@ -4,6 +4,7 @@ import {Vehicle} from "../../model/Vehicle.ts";
 import {} from "../../util/util.ts";
 import {Employee} from "../../model/Employee.ts";
 import {useSelector} from "react-redux";
+import {RootState} from "../../store/store.tsx";
 
 
 interface UpdateModalProps{
@@ -15,7 +16,7 @@ interface UpdateModalProps{
 
 function UpdateVehicle({ isModalOpen, setIsModalOpen, onUpdate, vehicle}: Readonly<UpdateModalProps>)  {
 
-    const employeeMember : Employee[] = useSelector((state:  {employee:Employee[]} ) => state.employee);
+    const employeeMember : Employee[] = useSelector((state: RootState ) => state.employee);
 
     const [formData, setFormData] = useState({
         licensePlate: vehicle.licensePlate,
@@ -49,15 +50,14 @@ function UpdateVehicle({ isModalOpen, setIsModalOpen, onUpdate, vehicle}: Readon
     function handleUpdate() {
         console.log("Update",formData);
 
-        const updatedStaff = {
+        const updatedVehicle = {
             ...vehicle,
-            licensePlate: formData.licensePlate,
             model: formData.model,
             capacity: formData.capacity,
             available: formData.available,
             employeeID: formData.employeeID,
         };
-        onUpdate(updatedStaff);
+        onUpdate(updatedVehicle);
         setIsModalOpen(false);
     }
 
@@ -104,8 +104,7 @@ function UpdateVehicle({ isModalOpen, setIsModalOpen, onUpdate, vehicle}: Readon
                     <div className="overflow-y-auto h-[60vh] custom-scrollbar p-2">
                         <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                             <div className="sm:col-span-3">
-                                <label htmlFor="licenseplate" className="block text-sm font-medium text-gray-900">First
-                                    name</label>
+                                <label htmlFor="licenseplate" className="block text-sm font-medium text-gray-900">LicensePlate No</label>
                                 <div className="mt-2">
                                     <input
                                         type="text"
@@ -113,7 +112,7 @@ function UpdateVehicle({ isModalOpen, setIsModalOpen, onUpdate, vehicle}: Readon
                                         id="licenseplate"
                                         value={formData.licensePlate}
                                         onChange={handleInputChange}
-                                        required
+                                        readOnly={true}
                                         className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-2 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-600 hover:outline-green-500 sm:text-sm"
                                     />
                                 </div>
@@ -168,7 +167,9 @@ function UpdateVehicle({ isModalOpen, setIsModalOpen, onUpdate, vehicle}: Readon
                                     <select
                                         name="employeeID"
                                         id="employeeID"
-                                        value={formData.employeeID}
+                                        value={
+                                            formData.employeeID ? formData.employeeID : "Not Allocated"
+                                        }
                                         onChange={handleInputChange}
                                         required
                                         className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-2 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-600 hover:outline-green-500 sm:text-sm"
@@ -177,7 +178,7 @@ function UpdateVehicle({ isModalOpen, setIsModalOpen, onUpdate, vehicle}: Readon
                                         <option value="None" >None</option>
 
                                         {employeeMember.map((employee) => (
-                                            <option value={employee.employeeID}>{employee.employeeID}
+                                            <option value={employee.employeeID}>{employee.employeeID}- {employee.firstName} {employee.lastName}
                                             </option>
                                         ))}
                                     </select>

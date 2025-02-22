@@ -84,9 +84,10 @@ const employeeSlice =  createSlice({
             });
         builder
             .addCase(updateEmployee.fulfilled, (state, action) => {
-                const index = state.findIndex((employee:Employee)=>employee.employeeID === action.payload.employeeId);
-                state[index] = action.payload;
-                alert("Employee Updated Successfully");
+                const index = state.findIndex(emp => emp.employeeID === action.payload.employeeID);
+                if (index !== -1) {
+                    state[index] = action.payload;
+                }
             })
             .addCase(updateEmployee.rejected, (state, action) => {
                 alert("Error Occurred")
@@ -96,9 +97,7 @@ const employeeSlice =  createSlice({
             });
         builder
             .addCase(deleteEmployee.fulfilled, (state, action) => {
-                const index = state.findIndex((employee:Employee)=>employee.employeeID === action.payload);
-                state.slice(index,1);
-                alert("Employee Deleted Successfully")
+                return state.filter((employee) => employee.employeeID !== action.payload.employeeID);
             })
             .addCase(deleteEmployee.rejected, (state, action) => {
                 alert("Error Occurred")

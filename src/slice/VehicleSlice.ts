@@ -74,9 +74,10 @@ const vehicleSlice = createSlice({
             });
         builder
             .addCase(updateVehicle.fulfilled, (state, action) => {
-                const index = state.findIndex((vehicle:Vehicle) => vehicle.licensePlate === action.payload.licensePlate);
-                state[index] = action.payload;
-                alert("Vehicle Updated Successfully");
+                const index = state.findIndex(vehicle => vehicle.vehicleID === action.payload.vehicleID);
+                if (index !== -1) {
+                    state[index] = action.payload;
+                }
             })
             .addCase(updateVehicle.rejected, (state, action) => {
                 console.log('Vehicle Update Failed');
@@ -86,9 +87,7 @@ const vehicleSlice = createSlice({
             });
         builder
             .addCase(deleteVehicle.fulfilled, (state, action) => {
-                const index = state.findIndex((vehicle:Vehicle) => vehicle.licensePlate === action.payload);
-                state.splice(index, 1);
-                alert("Vehicle Deleted Successfully");
+                return state.filter((vehicle) => vehicle.vehicleID !== action.payload.vehicleID);
             })
             .addCase(deleteVehicle.rejected, (state, action) => {
                 console.log('Vehicle Delete Failed');

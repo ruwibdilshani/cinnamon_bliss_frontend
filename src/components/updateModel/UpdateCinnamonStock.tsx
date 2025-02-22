@@ -4,7 +4,7 @@ import {useEffect, useState} from "react";
 import {motion} from "framer-motion";
 import * as React from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {AppDispatch} from "../../store/store.tsx";
+import {AppDispatch, RootState} from "../../store/store.tsx";
 import {getAllSuppliers} from "../../slice/SupplierSlice.ts";
 import {CinnamonStock} from "../../model/CinnamonStock.ts";
 import {Product} from "../../model/Product.ts";
@@ -22,17 +22,12 @@ interface UpdateModalProps{
 function UpdateCinnamonStock({ isModalOpen, setIsModalOpen, onUpdate, cinnamonStock}: Readonly<UpdateModalProps>) {
 
 
-    const supplierMember : Supplier[] = useSelector((state : {suppliers : Supplier[]}) => state.suppliers)
-    const products : Product [] = useSelector((state : {product : Product[]}) => state.product)
+    const supplierMember : Supplier[] = useSelector((state :RootState) => state.supplier)
+    const products : Product [] = useSelector((state :RootState) => state.product)
     // getAllCinnamonStock
 
     const dispatch = useDispatch<AppDispatch>();  // A hook to access the dispatch function from the Redux store
 
-    useEffect(() => {
-        if (!supplierMember || supplierMember.length === 0) {
-            dispatch(getAllSuppliers());
-        }
-    }, [dispatch, supplierMember]);
 
     useEffect(() => {
         if (!products || products.length === 0) {

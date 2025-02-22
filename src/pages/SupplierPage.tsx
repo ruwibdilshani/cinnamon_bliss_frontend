@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 
 import {useEffect, useState} from "react";
 
-import {AppDispatch} from "../store/store.tsx";
+import {AppDispatch, RootState} from "../store/store.tsx";
 import {Supplier} from "../model/Supplier.ts";
 import DeleteModal from "../components/DeleteModal.tsx";
 import {deleteSupplier, getAllSuppliers, saveSupplier, updateSupplier} from "../slice/SupplierSlice.ts";
@@ -18,7 +18,7 @@ import TableData from "../components/TableData.tsx";
 
 
 export function SupplierPage() {
-    const supplierMember : Supplier[] = useSelector((state:  {supplier:Supplier[]} ) => state.supplier);
+    const supplierMember : Supplier[] = useSelector((state:  RootState ) => state.supplier);
 
     const supplierHeaders = ['Code','Name', 'Email', 'Address', 'Contact No', 'Actions'];
     const dispatch = useDispatch<AppDispatch>();
