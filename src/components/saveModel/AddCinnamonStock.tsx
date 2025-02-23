@@ -8,6 +8,7 @@ import {CinnamonStock} from "../../model/CinnamonStock.ts";
 import {Product} from "../../model/Product.ts";
 import {getAllProducts} from "../../slice/ProductSlice.ts";
 import {Supplier} from "../../model/Supplier.ts";
+import {getAllSuppliers} from "../../slice/SupplierSlice.ts";
 
 
 
@@ -19,7 +20,7 @@ interface AddCinnamonStockProps{
 
 function AddCinnamonStock({ isModalOpen, setIsModalOpen, onSave }: Readonly<AddCinnamonStockProps>){
 
-    const supplierMember : Supplier[] = useSelector((state : RootState) => state.supplier)
+    const supplierMember : Supplier[] = useSelector((state : {supplier : Supplier[]}) => state.supplier)
     const products : Product [] = useSelector((state : RootState) => state.product)
     // getAllCinnamonStock
 
@@ -29,8 +30,13 @@ function AddCinnamonStock({ isModalOpen, setIsModalOpen, onSave }: Readonly<AddC
         if (!products || products.length === 0) {
             dispatch(getAllProducts());
         }
-    }, [dispatch]);
+    }, [dispatch,supplierMember]);
 
+    useEffect(() => {
+        if (!supplierMember || supplierMember.length === 0) {
+            dispatch(getAllSuppliers());
+        }
+    }, [dispatch ,supplierMember]);
 
     const [formData, setFormData] = useState({
         stockID: "",
@@ -223,7 +229,7 @@ function AddCinnamonStock({ isModalOpen, setIsModalOpen, onSave }: Readonly<AddC
                                     id="total"
                                     value={formData.total}
                                     onChange={handleInputChange}
-                                    readOnly={true}
+
                                     className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-2 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-600 hover:outline-green-500 sm:text-sm"
                                 />
                             </div>

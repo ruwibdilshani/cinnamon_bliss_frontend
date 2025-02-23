@@ -196,15 +196,15 @@ function LogActions({log, isModalOpen, setModalOpen, onUpdateLog, onDeleteLog }:
                         {/* Observation */}
                         <div className="mb-6">
                             <label
-                                htmlFor="observation"
+                                htmlFor="logsDes"
                                 className="block text-sm font-medium text-gray-900"
                             >
                                 Observation
                             </label>
                             <textarea
-                                id={'observation'}
+                                id={'logsDes'}
                                 value={formData.logsDes}
-                                name="observation"
+                                name="logsDes"
                                 className="mt-2 block w-full h-[20vh] rounded-md bg-white px-3 py-2 text-base text-gray-900 outline outline-2 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-green-600 hover:outline-green-500 sm:text-sm"
                                 onChange={handleInputChange}
                             ></textarea>

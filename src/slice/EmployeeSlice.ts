@@ -3,6 +3,7 @@ import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 
 import {Employee} from "../model/Employee.ts";
 import  axios from "axios";
+import {RootState} from "../store/store.tsx";
 
 
 
@@ -13,54 +14,111 @@ const  api = axios.create({
 });
 
 
+ // Make sure to import the RootState
+
 export const saveEmployee = createAsyncThunk(
     'employees/saveEmployee',
-    async (employee:Employee)=>{
-        console.log("Slice",employee);
+    async (employee: Employee, { getState, rejectWithValue }) => {
         try {
-            const response = await api.post('/add',employee);
+            const state = getState() as RootState; // Get state from Redux
+            const token = state.userReducer.jwt_token; // Access JWT token from Redux state
+
+            if (!token) {
+                alert("Please log in to save employee");
+                return rejectWithValue("Please log in to save employee");
+            }
+
+            const response = await api.post('/add', employee, {
+                headers: {
+                    Authorization: `Bearer ${token}`, // Include the token in the headers
+                },
+            });
+
             return response.data;
-        }catch (error){
-            return console.log('error',error)
+        } catch (error: any) {
+            return console.log('Error:', error);
         }
     }
 );
 
 export const updateEmployee = createAsyncThunk(
     'employees/updateEmployee',
-    async (employee:Employee)=>{
+    async (employee: Employee, { getState, rejectWithValue }) => {
         try {
-            const response = await api.put(`/update/${employee.employeeID}`,employee);
+            const state = getState() as RootState;
+            const token = state.userReducer.jwt_token;
+
+            if (!token) {
+                alert("Please log in to update employee");
+                return rejectWithValue("Please log in to update employee");
+            }
+
+            const response = await api.put(`/update/${employee.employeeID}`, employee, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
             return response.data;
-        }catch (error){
-            return console.log('error',error)
+        } catch (error: any) {
+            return console.log('Error:', error);
         }
     }
 );
 
 export const deleteEmployee = createAsyncThunk(
     'employees/removeEmployee',
-    async (id:string)=>{
+    async (id: string, { getState, rejectWithValue }) => {
         try {
-            const response = await api.delete(`/remove/${id}`);
+            const state = getState() as RootState;
+            const token = state.userReducer.jwt_token;
+
+            if (!token) {
+                alert("Please log in to delete employee");
+                return rejectWithValue("Please log in to delete employee");
+            }
+
+            const response = await api.delete(`/remove/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
             return response.data;
-        }catch (error){
-            return console.log('error',error)
+        } catch (error: any) {
+            return console.log('Error:', error);
         }
     }
 );
 
 export const getAllEmployees = createAsyncThunk(
     'employees/getAllEmployees',
-    async ()=>{
+    async (_, { getState, rejectWithValue }) => {
         try {
-            const response = await api.get('/all');
+            const state = getState() as RootState;
+            const token = state.userReducer.jwt_token;
+
+            if (!token) {
+                alert("Please log in to view employees");
+                return rejectWithValue("Please log in to view employees");
+            }
+
+            const response = await api.get('/all', {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
             return response.data;
-        }catch (error){
-            return console.log('error',error)
+        } catch (error: any) {
+            if (error.response?.status === 401) {
+                alert("Session expired. Please log in again.");
+            }
+            return console.log('Error:', error);
         }
     }
 );
+
 
 
 

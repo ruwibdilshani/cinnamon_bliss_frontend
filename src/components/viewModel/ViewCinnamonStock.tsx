@@ -5,13 +5,14 @@ import {formatDate} from "../../util/util.ts";
 import {CinnamonStock} from "../../model/CinnamonStock.ts";
 
 import {useEffect} from "react";
-import {getAllSuppliers} from "../../slice/SupplierSlice.ts";
+
 import {getAllProducts} from "../../slice/ProductSlice.ts";
 import {useDispatch, useSelector} from "react-redux";
 
 import {Product} from "../../model/Product.ts";
 import {Supplier} from "../../model/Supplier.ts";
 import {AppDispatch} from "../../store/store.tsx";
+import {getAllSuppliers} from "../../slice/SupplierSlice.ts";
 
 interface ViewCinnamonStockProps {
     isOpenModal: boolean;
@@ -31,6 +32,12 @@ useEffect(() => {
         dispatch(getAllProducts());
     }
 }, [dispatch, products]);
+
+    useEffect(() => {
+        if (!supplierMember || supplierMember.length === 0) {
+            dispatch(getAllSuppliers());
+        }
+    }, [dispatch, products]);
 
 
 

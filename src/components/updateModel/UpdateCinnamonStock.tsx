@@ -22,8 +22,8 @@ interface UpdateModalProps{
 function UpdateCinnamonStock({ isModalOpen, setIsModalOpen, onUpdate, cinnamonStock}: Readonly<UpdateModalProps>) {
 
 
-    const supplierMember : Supplier[] = useSelector((state :RootState) => state.supplier)
-    const products : Product [] = useSelector((state :RootState) => state.product)
+    const supplierMember : Supplier[] = useSelector((state :{supplier:Supplier[]}) => state.supplier)
+    const products : Product [] = useSelector((state :{product:Product}) => state.product)
     // getAllCinnamonStock
 
     const dispatch = useDispatch<AppDispatch>();  // A hook to access the dispatch function from the Redux store
@@ -35,11 +35,17 @@ function UpdateCinnamonStock({ isModalOpen, setIsModalOpen, onUpdate, cinnamonSt
         }
     }, [dispatch, products]);
 
+    useEffect(() => {
+        if (!supplierMember || supplierMember.length === 0) {
+            dispatch(getAllSuppliers());
+        }
+    }, [dispatch, products]);
+
 
     const [formData, setFormData] = useState({
 
         batchCode: cinnamonStock.batchCode,
-        type:cinnamonStock.type,
+        type:cinnamonStock.total,
         quantity:cinnamonStock.quantity,
         supplierID:cinnamonStock.supplierID,
         receivedDate:cinnamonStock.receivedDate
@@ -48,7 +54,7 @@ function UpdateCinnamonStock({ isModalOpen, setIsModalOpen, onUpdate, cinnamonSt
     useEffect(() => {
         setFormData({
             batchCode: cinnamonStock.batchCode,
-            type:cinnamonStock.type,
+            type:cinnamonStock.total,
             quantity:cinnamonStock.quantity,
             supplierID:cinnamonStock.supplierID,
             receivedDate:cinnamonStock.receivedDate.toString()
@@ -75,7 +81,7 @@ function UpdateCinnamonStock({ isModalOpen, setIsModalOpen, onUpdate, cinnamonSt
         const updateStock = {
             ...cinnamonStock,
             batchCode: cinnamonStock.batchCode,
-            type:cinnamonStock.type,
+            type:cinnamonStock.total,
             quantity:cinnamonStock.quantity,
             supplierID:cinnamonStock.supplierID,
             receivedDate:cinnamonStock.receivedDate
