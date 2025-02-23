@@ -5,10 +5,12 @@ import vehicleSlice from "../slice/VehicleSlice.ts";
 import cinnamonStockSlice from "../slice/StockSlice.ts";
 import productSlice from "../slice/ProductSlice.ts";
 import logsSlice from "../slice/LogsSlice.ts";
+import authUserSlice from "../slice/auth-user-slice.ts";
 
 
 export const store = configureStore({
     reducer: {
+        userReducer: authUserSlice,
         employee: employeeSlice,
         supplier: supplierSlice,
         vehicle: vehicleSlice,

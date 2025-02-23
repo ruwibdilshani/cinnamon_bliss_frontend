@@ -16,10 +16,22 @@ import {StockPage} from "./pages/StockPage.tsx";
 import {VehiclePage} from "./pages/VehiclePage.tsx";
 import ProductPage from "./pages/ProductPage.tsx";
 import LogPage from "./pages/LogPage.tsx";
+import LogoutPopup from "./pages/Logout.tsx";
+import SignUp from "./pages/SignUp.tsx";
+import SignIn from "./pages/SignIn.tsx";
 
 function App() {
   const routes = createBrowserRouter([
 
+
+    {
+      path: '/signUp',
+      element: <SignUp/>, // Set SignUp as the default page
+    },
+    {
+      path: '/signIn',
+      element:<SignIn/>
+    },
 
     {
       path: '',
@@ -33,9 +45,11 @@ function App() {
           {path: '/vehicle', element: <VehiclePage/>},
           {path: '/log', element: <LogPage/>},
 
-
-
-        {path: '*', element: <Error/>}
+          {path: '*', element: <Error/>},
+        {
+          path: '/logout',
+          element: <LogoutPopup/>
+        }
 
       ]
     },
