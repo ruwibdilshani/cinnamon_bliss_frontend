@@ -4,6 +4,7 @@ import supplierSlice from "../slice/SupplierSlice.ts";
 import vehicleSlice from "../slice/VehicleSlice.ts";
 import cinnamonStockSlice from "../slice/StockSlice.ts";
 import productSlice from "../slice/ProductSlice.ts";
+import logsSlice from "../slice/LogsSlice.ts";
 
 
 export const store = configureStore({
@@ -13,6 +14,7 @@ export const store = configureStore({
         vehicle: vehicleSlice,
         cinnamonStock: cinnamonStockSlice,
         product : productSlice,
+        log : logsSlice,
 
 
     },

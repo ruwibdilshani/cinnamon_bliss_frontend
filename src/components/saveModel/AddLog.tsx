@@ -1,28 +1,54 @@
-import React, { useState} from "react";
+
+
+import {useDispatch, useSelector} from "react-redux";
+
+import React, {useEffect, useState} from "react";
 import { motion } from "framer-motion";
 import toast from "react-hot-toast";
+import {Log} from "../../model/Log.ts";
+import {Employee} from "../../model/Employee.ts";
 import {Product} from "../../model/Product.ts";
+import {getAllProducts} from "../../slice/ProductSlice.ts";
+import {getAllEmployees} from "../../slice/EmployeeSlice.ts";
 
-interface AddProductProps {
+
+interface AddLogProps {
     isModalOpen: boolean;
     setIsModalOpen: (isOpen: boolean) => void;
-    onSave: (newProduct: Product) => void;
+    onSave: (newLog: Log) => void;
 }
-function AddProduct({ isModalOpen, setIsModalOpen, onSave }: Readonly<AddProductProps>) {
+function AddLog({ isModalOpen, setIsModalOpen, onSave }: Readonly<AddLogProps>) {
+    const products : Product[] = useSelector((state:  {product:Product[]} ) => state.product);
+    const employeeMember : Employee[] = useSelector((state: { employee:Employee[]}) => state.employee);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (!products || products.length === 0) {
+            dispatch(getAllProducts());
+        }
+        if (!employeeMember || employeeMember.length === 0) {
+            dispatch(getAllEmployees());
+        }
+    }, []);
+
 
 
     const [formData, setFormData] = useState({
-        name : '',
-        price : '',
-        quality : '',
-        showImage : '',
-    })
 
+        logsDes: '',
+        employeeID: '',
+        batchCode: '',
+        showImage: ''
+
+    });
 
     function handleInputChange(e: React.ChangeEvent<HTMLTextAreaElement | HTMLSelectElement>) {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
+
     }
+
+
 
     function handleFileUpload(
         e: React.ChangeEvent<HTMLInputElement>,
@@ -35,12 +61,14 @@ function AddProduct({ isModalOpen, setIsModalOpen, onSave }: Readonly<AddProduct
                 ...formData,
                 [imageKey]: URL.createObjectURL(file),
 
+
             })
         }
     }
 
     const [loading , setLoading] = useState(false);
     const handleSave = async () => {
+
 
         if (formData.showImage) {
             try {
@@ -76,17 +104,19 @@ function AddProduct({ isModalOpen, setIsModalOpen, onSave }: Readonly<AddProduct
                 console.log("Uploaded Image URL:", uploadedImageUrl.url);
 
                 // Create a new log with the uploaded image URL
-                const newProduct = new Product(
-                    "BC" + Math.floor(Math.random() * 1000),
-                    formData.name,
-                    Number(formData.price),
-                    formData.quality,
-                    uploadedImageUrl // Set uploaded image URL here
+                const newLog = new Log(
+                    "LO" + Math.floor(Math.random() * 1000),
+                    formData.employeeID,
+                    formData.logsDes,
+                    formData.batchCode,
+                    new Date(),
+                    uploadedImageUrl
+
                 );
 
-                onSave(newProduct);
+                onSave(newLog);
             } catch (error) {
-                console.error("Error saving products:", error);
+                console.error("Error saving log:", error);
             } finally {
                 setLoading(false);
             }
@@ -122,7 +152,7 @@ function AddProduct({ isModalOpen, setIsModalOpen, onSave }: Readonly<AddProduct
                     exit={{ opacity: 0, scale: 0.9 }}
                     transition={{ duration: 0.4 }}
                 >
-                    <h1 className="text-center text-xl font-semibold mb-5">Add Product</h1>
+                    <h1 className="text-center text-xl font-semibold mb-5">Add Log</h1>
                     <div className="overflow-y-auto h-[56vh] p-4 custom-scrollbar">
 
 
@@ -165,14 +195,14 @@ function AddProduct({ isModalOpen, setIsModalOpen, onSave }: Readonly<AddProduct
                                     />
 
                                     {loading && (
-                                        <div
-                                            className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 z-50">
+                                        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 z-50">
                                             <div className="flex flex-col items-center">
                                                 <i className="fa fa-spinner fa-spin text-white text-6xl"></i>
                                                 <p className="text-white text-lg mt-4">Uploading, please wait...</p>
                                             </div>
                                         </div>
                                     )}
+
 
 
                                     {/* Remove Button */}
@@ -193,102 +223,89 @@ function AddProduct({ isModalOpen, setIsModalOpen, onSave }: Readonly<AddProduct
 
 
                         <div className="sm:col-span-3 py-5">
-                            <label htmlFor="name" className="block text-sm font-medium text-gray-900">Product
-                                Category</label>
+                            <label htmlFor="employee-ID" className="block text-sm font-medium text-gray-900">Employee
+                                </label>
                             <div className="mt-2">
                                 <select
-                                    name="name"
-                                    id="name"
-                                    value={formData.name}
+                                    name="employeeID"
+                                    id="employee-ID"
+                                    value={formData.employeeID}
                                     onChange={handleInputChange}
                                     required
                                     className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-2 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-600 hover:outline-green-500 sm:text-sm"
                                 >
-                                    <option value="" disabled>Select Supplier</option>
-                                    <option value="CINNAMON">CINNAMON</option>
-                                    <option value="CLOVE">CLOVE</option>
-                                    <option value="GINGER">GINGER</option>
-                                    <option value="GARLIC">GARLIC</option>
-                                    <option value="PEPPER">PEPPER</option>
-                                    <option value="NUTMEG">NUTMEG</option>
+                                    <option value="" disabled>Select Employee</option>
+                                    {employeeMember.map((employee) => (
+                                        <option value={employee.employeeID}>{employee.employeeID} / {employee.firstName} {employee.lastName}
+                                        </option>
+                                    ))}
                                 </select>
                             </div>
                         </div>
 
+
+
                         <div className="sm:col-span-3 py-5">
-                            <label htmlFor="quality" className="block text-sm font-medium text-gray-900">Quality
-                                Description</label>
+                            <label htmlFor="batchCode" className="block text-sm font-medium text-gray-900">Product
+                                ID</label>
                             <div className="mt-2">
-                                <input
-                                    type="text"
-                                    name="quality"
-                                    id="quality"
-                                    value={formData.quality}
+                                <select
+                                    name="batchCode"
+                                    id="batchCode"
+                                    value={formData.batchCode}
                                     onChange={handleInputChange}
                                     required
                                     className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-2 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-600 hover:outline-green-500 sm:text-sm"
-                                />
-                            </div>
-                        </div>
-
-
-                        <div className="sm:col-span-3 ">
-                            <label htmlFor="price" className="block text-sm font-medium text-gray-900">Per Price</label>
-                            <div className="mt-2">
-                                <input
-                                    type="number"
-                                    name="price"
-                                    id="price"
-                                    value={formData.price}
-                                    onChange={handleInputChange}
-                                    required
-                                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-2 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-600 hover:outline-green-500 sm:text-sm"
-                                />
-                            </div>
-                        </div>
-
-                        <div className="sm:col-span-3 py-5">
-                            <div className="mb-6">
-                                <label
-                                    htmlFor="observation"
-                                    className="block text-sm font-medium text-gray-900"
                                 >
-                                    Observation
-                                </label>
-                                <textarea
-                                    id={'observation'}
-                                    name="observation"
-                                    className="mt-2 block w-full h-[20vh] rounded-md bg-white px-3 py-2 text-base text-gray-900 outline outline-2 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-green-600 hover:outline-green-500 sm:text-sm"
-                                    onChange={handleInputChange}
-                                ></textarea>
+                                    <option value="" disabled>Select Product</option>
+                                    {products.map((production) => (
+                                        <option value={production.batchCode}>{production.batchCode} / {production.name}
+                                        </option>
+                                    ))}
+                                </select>
                             </div>
                         </div>
-                        </div>
-                        <div className="mt-5 grid grid-cols-1 sm:grid-cols-6 gap-4 font-semibold">
-                            <div className="sm:col-span-3">
-                                <button
-                                    onClick={handleSave}
-                                    className="bg-green-600 w-full rounded-lg py-2 text-white hover:bg-green-700 focus:outline-none"
-                                >
-                                    Save
-                                </button>
-                            </div>
-                            <div className="sm:col-span-3">
-                                <button
-                                    onClick={() => {
-                                        setIsModalOpen(false);
 
-                                    }}
-                                    className="bg-gray-300 w-full rounded-lg py-2 text-black hover:bg-gray-400 focus:outline-none"
-                                >
-                                    Cancel
-                                </button>
-                            </div>
+                        <div className="mb-6">
+                            <label
+                                htmlFor="observation"
+                                className="block text-sm font-medium text-gray-900"
+                            >
+                                Observation
+                            </label>
+                            <textarea
+                                id={'logsDes'}
+                                name="logsDes"
+                                className="mt-2 block w-full h-[20vh] rounded-md bg-white px-3 py-2 text-base text-gray-900 outline outline-2 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-green-600 hover:outline-green-500 sm:text-sm"
+                                onChange={handleInputChange}
+                            ></textarea>
                         </div>
+                    </div>
+                    <div className="mt-5 grid grid-cols-1 sm:grid-cols-6 gap-4 font-semibold">
+                        <div className="sm:col-span-3">
+                            <button
+                                onClick={handleSave}
+                                className="bg-green-600 w-full rounded-lg py-2 text-white hover:bg-green-700 focus:outline-none"
+                            >
+                                Save
+                            </button>
+                        </div>
+                        <div className="sm:col-span-3">
+                            <button
+                                onClick={() => {
+                                    setIsModalOpen(false);
+
+                                }}
+                                className="bg-gray-300 w-full rounded-lg py-2 text-black hover:bg-gray-400 focus:outline-none"
+                            >
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
                 </motion.div>
             </motion.div>
         )
     );
 }
 
-export default AddProduct;
+export default AddLog;

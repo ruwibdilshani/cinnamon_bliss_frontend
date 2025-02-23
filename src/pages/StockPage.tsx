@@ -20,7 +20,7 @@ export function StockPage() {
     const cinnamonStock : CinnamonStock [] = useSelector((state: RootState) => state.cinnamonStock)
     const supplierMember : Supplier[] = useSelector((state : RootState) => state.supplier)
 
-    const stockCinnamonHeaders = ['StockID', 'SupplierID', 'Supplier Name', 'Quantity/KG', 'Received Date', 'Actions'];
+        const stockCinnamonHeaders = ['StockID', 'Supplier', 'Quantity/KG', 'Total (Rs)', 'Received Date', 'Actions'];
 
     const dispatch  = useDispatch<AppDispatch>()
 
@@ -35,14 +35,14 @@ export function StockPage() {
         if (!cinnamonStocks) return <div className={"p-2"}>Invalid Raw Material Data</div>;
         return (
             <>
-                <div className="p-2 truncate">{cinnamonStocks.stockID}</div> // name eka dnna
-                <div className="p-2 truncate">{cinnamonStocks.supplierID}</div>
+                <div className="p-2 truncate">{cinnamonStocks.stockID}</div>
                 <div className="p-2 truncate">{
                     supplierMember.filter((supplier) => supplier.supplierID === cinnamonStocks.supplierID).map((filteredSupplier) => {
-                        return filteredSupplier.firstName + " " + filteredSupplier.lastName;
+                        return filteredSupplier.supplierID +" / "+filteredSupplier.firstName + " / " + filteredSupplier.lastName;
                     })
                 }</div>
                 <div className="p-2 truncate">{cinnamonStocks.quantity}</div>
+                <div className="p-2 truncate">{cinnamonStocks.total}</div>
                 <div className="p-2 truncate">{formatDate(cinnamonStocks.receivedDate)}</div>
             </>
         );

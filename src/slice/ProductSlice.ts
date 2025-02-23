@@ -1,7 +1,8 @@
 import {Product} from "../model/Product.ts";
 import axios from "axios";
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {Log} from "../model/Log.ts";
+import toast from "react-hot-toast";
+
 
 const initialState: Product[] = [];
 
@@ -76,6 +77,10 @@ export const productSlice = createSlice({
             .addCase(updateProduct.rejected, (state, action) => {
                 console.log('Product reject Successfully');
             })
+
+            .addCase(updateProduct.pending, (state, action) => {
+                toast.success('Waiting for update confirmation');
+            })
             .addCase(updateProduct.fulfilled, (state, action) => {
                 const index = state.findIndex((product: Product) => product.batchCode === action.payload.batchCode);
                 state[index] = action.payload;
@@ -85,10 +90,11 @@ export const productSlice = createSlice({
             .addCase(deleteProduct.rejected, (state, action) => {
                 console.log('Product reject Successfully');
             })
+            .addCase(deleteProduct.pending, (state, action) => {
+                alert("Product Delete Failed");
+            })
             .addCase(deleteProduct.fulfilled, (state, action) => {
-                const index = state.findIndex((product: Product) => product.batchCode === action.payload);
-                state.slice(index,1);
-                alert("Product Deleted Successfully");
+                return state.filter((product) => product.batchCode !== action.payload.batchCode);
             });
         builder
             .addCase(getAllProducts.rejected, (state, action) => {

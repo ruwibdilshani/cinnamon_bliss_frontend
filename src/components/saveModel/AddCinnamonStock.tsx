@@ -5,7 +5,6 @@ import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "../../store/store.tsx";
 import {CinnamonStock} from "../../model/CinnamonStock.ts";
-import {getAllSuppliers} from "../../slice/SupplierSlice.ts";
 import {Product} from "../../model/Product.ts";
 import {getAllProducts} from "../../slice/ProductSlice.ts";
 import {Supplier} from "../../model/Supplier.ts";
@@ -36,7 +35,7 @@ function AddCinnamonStock({ isModalOpen, setIsModalOpen, onSave }: Readonly<AddC
     const [formData, setFormData] = useState({
         stockID: "",
         batchCode: "",
-        type: "",
+        total: 0,
         quantity: "",
         supplierID:"",
         receivedDate:""
@@ -46,17 +45,30 @@ function AddCinnamonStock({ isModalOpen, setIsModalOpen, onSave }: Readonly<AddC
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
 
+        // Handle supplier selection
         if (name === "supplierID") {
             const supplier = supplierMember.find((supplier) => supplier.supplierID === value);
             if (supplier) {
-                /*supplierName input set name*/
                 const supplierName = document.getElementById("supplierName") as HTMLInputElement;
                 supplierName.value = supplier.firstName + " " + supplier.lastName;
             }
-
-
         }
+
+        // // Handle batchCode and quantity changes
+        // if (name === "quantity" || name === "batchCode") {
+        //     const product = products.find((product) => product.batchCode === formData.batchCode);
+        //     if (product && formData.quantity) {
+        //         const perPrice = product.price;
+        //         const total = perPrice * Number(formData.quantity);
+        //         const totalInput = document.getElementById("total") as HTMLInputElement;
+        //         totalInput.value = String(total);
+        //
+        //         // Set total in state as well
+        //         setFormData({ ...formData, total: total });
+        //     }
+        // }
     }
+
 
     const handleSave = () => {
         // if (!formData.firstName || !formData.lastName || !formData.designation || !formData.email){
@@ -66,7 +78,7 @@ function AddCinnamonStock({ isModalOpen, setIsModalOpen, onSave }: Readonly<AddC
         const newStock = new CinnamonStock(
             "CS" + Math.floor(Math.random() * 1000),
             formData.batchCode,
-            formData.type,
+            formData.total,
             Number(formData.quantity),
             formData.supplierID,
             formData.receivedDate
@@ -177,28 +189,13 @@ function AddCinnamonStock({ isModalOpen, setIsModalOpen, onSave }: Readonly<AddC
                                     {/*+" / "+product.name*/}
                                     <option value="" disabled>Select Product Type</option>
                                     {products.map((product) => (
-                                        <option value={product.batchCode}>{product.batchCode}
+                                        <option value={product.batchCode}>{product.batchCode} / {product.name} / price :{product.price}
                                         </option>
                                     ))}
                                 </select>
                             </div>
                         </div>
 
-                        <div className="sm:col-span-3 py-5">
-                            <label htmlFor="type" className="block text-sm font-medium text-gray-900">Types
-                            </label>
-                            <div className="mt-2">
-                                <input
-                                    type="text"
-                                    name="type"
-                                    id="type"
-                                    value={formData.type}
-                                    onChange={handleInputChange}
-                                    required
-                                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-2 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-600 hover:outline-green-500 sm:text-sm"
-                                />
-                            </div>
-                        </div>
 
                         <div className="sm:col-span-3 py-5">
                             <label htmlFor="quantity" className="block text-sm font-medium text-gray-900">Quantity
@@ -211,6 +208,22 @@ function AddCinnamonStock({ isModalOpen, setIsModalOpen, onSave }: Readonly<AddC
                                     value={formData.quantity}
                                     onChange={handleInputChange}
                                     required
+                                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-2 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-600 hover:outline-green-500 sm:text-sm"
+                                />
+                            </div>
+                        </div>
+
+                        <div className="sm:col-span-3 py-5">
+                            <label htmlFor="total" className="block text-sm font-medium text-gray-900">Total Price
+                            </label>
+                            <div className="mt-2">
+                                <input
+                                    type="number"
+                                    name="total"
+                                    id="total"
+                                    value={formData.total}
+                                    onChange={handleInputChange}
+                                    readOnly={true}
                                     className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-2 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-600 hover:outline-green-500 sm:text-sm"
                                 />
                             </div>

@@ -2,7 +2,7 @@
 export class CinnamonStock {
     stockID!: string;
     batchCode!: string;
-    type!: string;
+    total!: number;
     quantity!: number;
     supplierID!: string;
     receivedDate!: Date | string;
@@ -10,7 +10,7 @@ export class CinnamonStock {
     constructor(
         stockID: string,
         batchCode: string,
-        type: string,
+        total: number,
         quantity: number,
         supplierID: string,
         receivedDate: Date | string
@@ -18,7 +18,7 @@ export class CinnamonStock {
     ) {
         this.stockID = stockID;
         this.batchCode = batchCode;
-        this.type = type;
+        this.total = total;
         this.quantity = quantity;
         this.supplierID = supplierID;
         this.receivedDate = receivedDate;

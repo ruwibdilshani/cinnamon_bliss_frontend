@@ -12,10 +12,10 @@ import {Home} from "./pages/Home.tsx";
 import {Error} from "./components/Error.tsx";
 import {EmployeePage} from "./pages/EmployeePage.tsx";
 import {SupplierPage} from "./pages/SupplierPage.tsx";
-import {ProductPage} from "./pages/ProductPage.tsx";
 import {StockPage} from "./pages/StockPage.tsx";
-import {LogPage} from "./pages/LogPage.tsx";
 import {VehiclePage} from "./pages/VehiclePage.tsx";
+import ProductPage from "./pages/ProductPage.tsx";
+import LogPage from "./pages/LogPage.tsx";
 
 function App() {
   const routes = createBrowserRouter([

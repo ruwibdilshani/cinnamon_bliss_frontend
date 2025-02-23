@@ -10,6 +10,13 @@ export function RootLayout() {
     const userRole = "Role";
 
 
+    // const isAuthenticated = useSelector((state) => state.userReducer.isAuthenticated);
+    //
+    //
+    // if (!isAuthenticated) {
+    //     return <Navigate to="/signIn" replace/>;
+    // }
+
 
 
     return (

@@ -2,13 +2,12 @@ import profileIcon from "../assets/icons/profile.png"
 
 export function Header({ userFullName, userRole }) {
 
-
-
     return (
         <header
             className="bg-white p-4 flex justify-between items-center fixed top-0 left-0 sm:left-80 right-0 z-10 h-16">
-            <div className="flex space-x-4 mt-3">
-                <div className="relative hidden md:block group ml-4">
+            {/* Left Section */}
+            <div className="flex items-center space-x-4 pl-4 mt-8">
+                <div className="relative hidden md:block group mb-4">
                     <input
                         id="search-bar"
                         type="text"

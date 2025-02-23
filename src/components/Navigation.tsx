@@ -37,13 +37,13 @@ function Navigation({ isOpen}) {
             )}
             {/* Sidebar */}
             <aside
-                className={` bg-brown-500 shadow-md fixed z-40 h-full transition-transform transform ${
+                className={` bg-green-100 shadow-md fixed z-40 h-full transition-transform transform ${
                     isMenuOpen || isOpen ? 'translate-x-0 ' : '-translate-x-full'
                 } md:translate-x-0 w-80`}
             >
                 <div className=" p-6 ml-2 flex justify-between items-center mt-3">
                     <img src={teacraftlogo} alt="logo" className="h-12 object-cover drop-shadow mr-2"  />
-                    <p className={ '  flex justify-center text-2xl font-bold text-brown-50 '}>CINNAMON BLISS</p>
+                    <p className={ '  flex justify-center text-2xl font-bold text-green-700  '}>CINNAMON BLISS</p>
                     <button
                         className="md:hidden text-gray-500 hover:text-green-700  "
                         onClick={() => setMenuOpen(false)}
@@ -63,8 +63,8 @@ function Navigation({ isOpen}) {
                             }}
                             className={`flex items-center font-medium rounded  md:text-base lg:text-lg w-full py-2 pl-3 transition-all ${
                                 activeItem === item.id
-                                    ? 'bg-brown-400 text-brown-50'
-                                    : 'text-gray-700 hover: bg-brown-600 hover: text-brown-50'
+                                    ? 'bg-gray-100 text-green-700'
+                                    : 'text-gray-700 hover:bg-gray-100 hover:text-green-700'
                             } ${item.id === 'logout' ? 'fixed max-w-72 align-bottom  bottom-5 ' : '' } `}
                         >
                             <i
