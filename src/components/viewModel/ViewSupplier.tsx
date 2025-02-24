@@ -131,7 +131,7 @@ function ViewSupplier({ isOpenModal, setIsOpenModal, supplier }: Readonly<ViewSu
                                 <div className="mt-2">
                                     <input
                                         type="text"
-                                        value={supplier.addressLine1}
+                                        value={supplier.addressLine01}
                                         readOnly
                                         className="block w-full rounded-md bg-white px-3 py-2 text-base text-gray-900 sm:text-sm outline outline-2 -outline-offset-1 outline-gray-300"
                                     />

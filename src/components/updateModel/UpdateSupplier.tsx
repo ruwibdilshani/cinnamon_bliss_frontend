@@ -20,7 +20,7 @@ function UpdateSupplier({ isModalOpen, setIsModalOpen, onUpdate, supplier}: Read
         gender: supplier.gender,
         contactNo: supplier.contactNo,
         email: supplier.email,
-        addressLine1: supplier.addressLine1,
+        addressLine01: supplier.addressLine01,
         postalCode: supplier.postalCode,
     });
 
@@ -31,7 +31,7 @@ function UpdateSupplier({ isModalOpen, setIsModalOpen, onUpdate, supplier}: Read
             gender: supplier.gender,
             contactNo: supplier.contactNo,
             email: supplier.email,
-            addressLine1: supplier.addressLine1,
+            addressLine01: supplier.addressLine01,
             postalCode: supplier.postalCode,
         });
     }, [isModalOpen]);
@@ -46,11 +46,13 @@ function UpdateSupplier({ isModalOpen, setIsModalOpen, onUpdate, supplier}: Read
             ...supplier,
             firstName: formData.firstName,
             lastName: formData.lastName,
-            gender: formData.gender,
-            addressLine1: formData.addressLine1,
-            postalCode: formData.postalCode,
-            contactNumber: formData.contactNo,
             email: formData.email,
+            contactNo: formData.contactNo,
+            gender: formData.gender,
+            addressLine01: formData.addressLine01,
+            postalCode: formData.postalCode,
+
+
 
         };
         onUpdate(updatedSuppplier);
@@ -159,13 +161,13 @@ function UpdateSupplier({ isModalOpen, setIsModalOpen, onUpdate, supplier}: Read
                         {/* Date of Birth and Contact Number */}
                         <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                             <div className="sm:col-span-3">
-                                <label htmlFor="contact-number" className="block text-sm font-medium text-gray-900">Contact
+                                <label htmlFor="contactNo" className="block text-sm font-medium text-gray-900">Contact
                                     Number</label>
                                 <div className="mt-2">
                                     <input
                                         type="tel"
                                         name="contactNo"
-                                        id="contact-number"
+                                        id="contactNo"
                                         value={formData.contactNo}
                                         onChange={handleInputChange}
                                         required
@@ -196,14 +198,14 @@ function UpdateSupplier({ isModalOpen, setIsModalOpen, onUpdate, supplier}: Read
                         {/* Address Fields */}
                         <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                             <div className="sm:col-span-3">
-                                <label htmlFor="street-address" className="block text-sm font-medium text-gray-900">
+                                <label htmlFor="addressLine01" className="block text-sm font-medium text-gray-900">
                                     Address</label>
                                 <div className="mt-2">
                                     <input
                                         type="text"
-                                        name="addressLine1"
-                                        id="street-address"
-                                        value={formData.addressLine1}
+                                        name="addressLine01"
+                                        id="addressLine01"
+                                        value={formData.addressLine01}
                                         onChange={handleInputChange}
                                         required
                                         className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-2 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-600 hover:outline-green-500 sm:text-sm"

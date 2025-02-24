@@ -4,7 +4,7 @@ export class Supplier {
     firstName! : string;
     lastName! : string;
     gender! : string;
-    addressLine1!: string;
+    addressLine01!: string;
     postalCode!: string;
     contactNo!: string;
     email!: string;
@@ -14,7 +14,7 @@ export class Supplier {
         firstName: string,
         lastName: string,
         gender: string,
-        addressLine1: string,
+        addressLine01: string,
         postalCode: string,
         contactNo: string,
         email: string,
@@ -26,7 +26,7 @@ export class Supplier {
         this.email = email;
         this.contactNo = contactNo;
         this.postalCode = postalCode;
-        this.addressLine1 = addressLine1;
+        this.addressLine01 = addressLine01;
         this.gender= gender;
     }
 

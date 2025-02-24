@@ -85,6 +85,7 @@ export const deleteEmployee = createAsyncThunk(
             });
 
             return response.data;
+
         } catch (error: any) {
             return console.log('Error:', error);
         }
@@ -158,10 +159,10 @@ const employeeSlice =  createSlice({
                 return state.filter((employee) => employee.employeeID !== action.payload.employeeID);
             })
             .addCase(deleteEmployee.rejected, (state, action) => {
-                alert("Error Occurred")
+                 alert("Error Occurred")
             })
             .addCase(deleteEmployee.pending, (state, action) => {
-                alert("Deleting Employee")
+                 alert("Deleting Employee")
             });
 
         builder

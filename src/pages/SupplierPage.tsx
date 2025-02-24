@@ -20,7 +20,7 @@ import TableData from "../components/TableData.tsx";
 export function SupplierPage() {
     const supplierMember : Supplier[] = useSelector((state:  RootState ) => state.supplier);
 
-    const supplierHeaders = ['Code','Name', 'Email', 'Address', 'Contact No', 'Actions'];
+    const supplierHeaders = ['Code','Name', 'Email', 'Home Address', 'Contact No', 'Actions'];
     const dispatch = useDispatch<AppDispatch>();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isViewModalOpen, setIsViewModalOpen] = useState(false);
@@ -31,8 +31,8 @@ export function SupplierPage() {
         <>
             <div className="p-2 truncate">{supplier.supplierID}</div>
             <div className="p-2 truncate">{supplier.firstName} {supplier.lastName}</div>
-            <div className="p-2 hidden sm:block truncate">{supplier.email}</div>
-            <div className="p-2 truncate">{supplier.addressLine1}</div>
+            <div className="p-2 truncate">{supplier.email}</div>
+            <div className="p-2 truncate">{supplier.addressLine01}</div>
             <div className="p-2 truncate">{supplier.contactNo}</div>
 
         </>
