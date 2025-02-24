@@ -4,8 +4,8 @@ import { AppDispatch } from "../store/store.tsx";
 import { UserAdmin } from "../model/UserAdmin.ts";
 import { registerUser } from "../slice/auth-user-slice.ts";
 import { useNavigate } from "react-router";
-import image from "../assets/img/signup Img.png";
-import logo from "../assets/icons/logoIcon.png"
+import image from "../assets/img/pngegg (9).png";
+import teacraftlogo from '../assets/img/logo.png';
 import {motion} from "framer-motion";
 import toast from "react-hot-toast";
 
@@ -50,7 +50,6 @@ const SignUp = () => {
     }, [isAuthenticated, navigate]);
 
     return (
-
         <motion.div
             initial={{
                 opacity: 0,  // Start invisible
@@ -66,14 +65,13 @@ const SignUp = () => {
                 ease: [0.25, 0.8, 0.5, 1],  // Smooth easing curve
             }}
         >
-            <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-green-700 to-green-300">
-                <div className="bg-white p-8 rounded-xl shadow-lg flex max-w-6xl w-full ">
-
+            <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-brown-700 to-brown-300">
+                <div className="bg-white p-8 rounded-xl  flex max-w-6xl w-full ">
 
                     {/* Image positioned at the top-right */}
                     <div className="absolute top-0 right-0 p-8">
                         <img
-                            src={logo} // Update the path with your actual image location
+                            src={teacraftlogo} // Update the path with your actual image location
                             alt="Sign Up Illustration"
                             className="w-16 h-16 object-contain"
                         />
@@ -92,7 +90,7 @@ const SignUp = () => {
                                     name="email"
                                     value={formData.email}
                                     onChange={handleChange}
-                                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
+                                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brown-500"
                                     required
                                 />
                             </div>
@@ -104,7 +102,7 @@ const SignUp = () => {
                                     name="password"
                                     value={formData.password}
                                     onChange={handleChange}
-                                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
+                                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brown-500"
                                     required
                                 />
                             </div>
@@ -115,7 +113,7 @@ const SignUp = () => {
                                     name="role"
                                     value={formData.role}
                                     onChange={handleChange}
-                                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
+                                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brown-500"
                                 >
                                     <option value="MANAGER">Manager</option>
                                     <option value="EMPLOYEE">Employee</option>
@@ -129,42 +127,39 @@ const SignUp = () => {
                                     name="agreed"
                                     checked={formData.agreed}
                                     onChange={handleChange}
-                                    className="w-4 h-4 text-green-500 border-gray-300 rounded focus:ring-green-500"
+                                    className="w-4 h-4 text-brown-500 border-gray-300 rounded focus:ring-brown-500"
                                 />
                                 <label className="text-gray-600 text-sm">
-                                    I agree to all <a href="#" className="text-green-600 font-medium">Terms, Privacy
-                                    Policy</a> and Fees.
+                                    I agree to all <a href="#" className="text-brown-600 font-medium">Terms, Privacy Policy</a> and Fees.
                                 </label>
                             </div>
 
                             <button
                                 type="submit"
-                                className="w-full bg-green-600 text-white p-3 rounded-lg hover:bg-green-700 transition"
+                                className="w-full bg-amber-500 text-white p-3 rounded-lg hover:bg-amber-900 transition"
                             >
                                 Sign Up
                             </button>
                         </form>
 
                         <p className="text-gray-600 mt-4 text-center">
-                            Already have an account? <a href="/login" className="text-green-600 font-medium">Sign
-                            in</a> Now.
+                            Already have an account? <a href="/login" className="text-brown-600 font-medium">Sign in</a> Now.
                         </p>
                     </div>
 
                     {/* Right Section - Image */}
-                    <div className="w-1/2 object-cover flex  items-center rounded-r-xl bg-green-300">
+                    <div className="   w-1/2 object-cover flex  items-center rounded-r-xl bg-brown-300">
                         <img
                             src={image}// Update the path with your actual image location
                             alt="Farm Management"
-                            className="  object-cover rounded-r-xl "
+                            className="object-cover rounded-r-xl ml-20 "
                         />
                     </div>
 
                 </div>
             </div>
-            );
         </motion.div>
     );
 }
 
-            export default SignUp;
+export default SignUp;
