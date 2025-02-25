@@ -57,10 +57,10 @@ function AddProduct({ isModalOpen, setIsModalOpen, onSave }: Readonly<AddProduct
 
                 const data = new FormData();
                 data.append("file", file);
-                data.append("upload_preset", "Log_image_cloudinary");
-                data.append("cloud_name", 'dkefmgxtp');
+                data.append("upload_preset", "ruwani");
+                data.append("cloud_name", 'dxbgbdip8');
 
-                const res = await fetch("https://api.cloudinary.com/v1_1/dkefmgxtp/image/upload", {
+                const res = await fetch("https://api.cloudinary.com/v1_1/dxbgbdip8/image/upload", {
                     method: "POST",
                     body: data,
                 });
