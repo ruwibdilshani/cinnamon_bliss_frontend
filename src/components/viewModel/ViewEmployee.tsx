@@ -31,7 +31,7 @@ function ViewEmployee({ isOpenModal, setIsOpenModal, employee }: Readonly<ViewEm
 
                 {/* Modal content */}
                 <motion.div
-                    className="bg-white rounded-lg p-8 w-full drop-shadow-2xl sm:w-[60vw] bg-brown-100"
+                    className="bg-amber-100 rounded-lg p-8 w-full drop-shadow-2xl sm:w-[60vw] bg-brown-100"
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: isOpenModal ? 1 : 0, scale: isOpenModal ? 1 : 0.8 }}
                     exit={{ opacity: 0, scale: 0.9, y: 50 }}

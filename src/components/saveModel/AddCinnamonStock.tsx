@@ -21,7 +21,7 @@ interface AddCinnamonStockProps{
 function AddCinnamonStock({ isModalOpen, setIsModalOpen, onSave }: Readonly<AddCinnamonStockProps>){
 
     const supplierMember : Supplier[] = useSelector((state : {supplier : Supplier[]}) => state.supplier)
-    const products : Product [] = useSelector((state : RootState) => state.product)
+    const products : Product [] = useSelector((state : {product : Product[]}) => state.product)
     // getAllCinnamonStock
 
     const dispatch = useDispatch<AppDispatch>();  // A hook to access the dispatch function from the Redux store
@@ -118,7 +118,7 @@ function AddCinnamonStock({ isModalOpen, setIsModalOpen, onSave }: Readonly<AddC
 
                 {/* Modal content */}
                 <motion.div
-                    className="bg-white rounded-lg p-8 w-full drop-shadow-2xl sm:w-[60vw]"
+                    className="bg-amber-100 rounded-lg p-8 w-full drop-shadow-2xl sm:w-[60vw]"
                     initial={{ opacity: 0, scale: 0.8 }} // Start slightly smaller and faded out
                     animate={{
                         opacity: isModalOpen ? 1 : 0,

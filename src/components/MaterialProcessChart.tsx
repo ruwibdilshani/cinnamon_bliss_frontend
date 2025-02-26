@@ -16,7 +16,7 @@ interface MaterialProcessChartProps {
 
 function MaterialProcessChart({isModel,isType}:MaterialProcessChartProps) {
     const cinnamonStock: CinnamonStock[] = useSelector((state: RootState) => state.cinnamonStock);
-    const product: Product[] = useSelector((state: RootState) => state.product);
+    const product: Product[] = useSelector((state: {product : Product[]}) => state.product);
     const dispatch = useDispatch<AppDispatch>();
 
     useEffect(() => {
@@ -29,7 +29,7 @@ function MaterialProcessChart({isModel,isType}:MaterialProcessChartProps) {
         if (!product || product.length === 0) {
             dispatch(getAllProducts());
         }
-    }, [dispatch,product]);
+    }, [dispatch]);
 
 
 
@@ -50,32 +50,44 @@ function MaterialProcessChart({isModel,isType}:MaterialProcessChartProps) {
        const options = {
            chart: {
                type: isModel,
+               backgroundColor: "#FCD34D",
+               borderRadius: 22,
                style: {
                    fontFamily: "Poppins", // Set global font family
+
                },
+
+
            },
            title: {
                text: 'Stock Available',
+
            },
            tooltip: {
                pointFormat: "{series.name}: <b>{point.percentage:.1f}%</b>",
+
            },
            accessibility: {
                point: {
                    valueSuffix: "%",
+
                },
            },
            plotOptions: {
                pie: {
                    allowPointSelect: true,
                    cursor: "pointer",
+
                    dataLabels: {
                        enabled: true,
+
                        style: {
                            fontFamily: "Poppins", // Set font for data labels
                            fontSize: "10px",
+
                        },
                        format: "<b>{point.name}</b>: {point.percentage:.1f} %",
+
                    },
                },
            },
@@ -84,6 +96,7 @@ function MaterialProcessChart({isModel,isType}:MaterialProcessChartProps) {
                    name: "Raw Material",
                    colorByPoint: true,
                    data: chartData,
+
                },
            ],
        };
@@ -109,6 +122,8 @@ function MaterialProcessChart({isModel,isType}:MaterialProcessChartProps) {
        const options = {
            chart: {
                type: isModel,
+               backgroundColor: "#FCD34D",
+               borderRadius: 22,
                style: {
                    fontFamily: "Poppins", // Set global font family
                },

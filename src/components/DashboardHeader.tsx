@@ -82,11 +82,11 @@ const DashboardHeader = () => {
                 <h1 className="text-lg sm:text-xl lg:text-2xl font-bold mb-1" id="greeting-txt">
                     {greeting}
                 </h1>
-                <p className="text-gray-600 text-xs sm:text-sm lg:text-base">
+                <p className="text-amber-800 text-xs sm:text-sm lg:text-base">
                     Optimize Your Operations with Real-Time Insights
                 </p>
             </div>
-            <div className="flex items-center bg-gray-200 text-gray-800 px-4 py-2 rounded-lg">
+            <div className="flex items-center bg-amber-600 text-gray-800 px-4 py-2 rounded-lg">
                 <span className="mr-2 text-2xl sm:text-xl lg:text-2xl" id="weather-emoji">
                     {weatherEmoji}
                 </span>

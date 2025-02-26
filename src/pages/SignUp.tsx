@@ -16,8 +16,9 @@ const SignUp = () => {
 
     const [formData, setFormData] = useState({
         email: "",
-        password: "",
+        confirmpassword: "",
         role: "",
+        password : '',
         agreed: false,
     });
 
@@ -32,14 +33,20 @@ const SignUp = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (!formData.agreed) {
-            alert("Please agree to the terms before signing up.");
+
+            toast.error("Please agree to the terms before signing up.");
             return;
         }
-        const user: UserAdmin = { email: formData.email, password: formData.password, role: formData.role };
-        dispatch(registerUser(user));
+        if (formData.password !== formData.confirmpassword) {
+                toast.error('Passwords do not match');
+        }else{
+            const user: UserAdmin = { email: formData.email, password: formData.confirmpassword, role: formData.role };
+            dispatch(registerUser(user));
 
-        toast.success('User Registered Successfully');
-        navigate("/signIn");
+            toast.success('User Registered Successfully');
+            navigate("/signIn");
+        }
+
     };
 
     useEffect(() => {
@@ -95,12 +102,27 @@ const SignUp = () => {
                                 />
                             </div>
 
+
+
                             <div>
-                                <label className="block text-gray-700 font-semibold mb-1">Password</label>
+                                <label className="block text-gray-700 font-semibold mb-1"> Password</label>
                                 <input
                                     type="password"
                                     name="password"
                                     value={formData.password}
+                                    onChange={handleChange}
+                                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brown-500"
+                                    required
+                                />
+                            </div>
+
+
+                            <div>
+                                <label className="block text-gray-700 font-semibold mb-1">Confirm Password</label>
+                                <input
+                                    type="password"
+                                    name="confirmpassword"
+                                    value={formData.confirmpassword}
                                     onChange={handleChange}
                                     className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brown-500"
                                     required

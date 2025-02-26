@@ -75,7 +75,7 @@ function AddVehicle({ isModalOpen, setIsModalOpen, onSave }: Readonly<AddVehicle
 
                 {/* Modal content */}
                 <motion.div
-                    className="bg-white rounded-lg p-8 w-full drop-shadow-2xl sm:w-[60vw]"
+                    className="bg-amber-100 rounded-lg p-8 w-full drop-shadow-2xl sm:w-[60vw]"
                     initial={{ opacity: 0, scale: 0.8 }} // Start slightly smaller and faded out
                     animate={{
                         opacity: isModalOpen ? 1 : 0,

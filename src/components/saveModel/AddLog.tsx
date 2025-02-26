@@ -146,7 +146,7 @@ function AddLog({ isModalOpen, setIsModalOpen, onSave }: Readonly<AddLogProps>) 
 
                 {/* Modal Content */}
                 <motion.div
-                    className="bg-white rounded-lg p-8 w-full sm:w-[42vw] drop-shadow-2xl"
+                    className="bg-amber-100 rounded-lg p-8 w-full sm:w-[42vw] drop-shadow-2xl"
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.9 }}

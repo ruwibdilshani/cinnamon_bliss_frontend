@@ -13,7 +13,7 @@ const RealTimeCalendar: React.FC = () => {
 
     return (
         <div className=" flex-col items-center justify-center  " >
-            <div className="bg-white p-6 rounded-2xl shadow-xl text-center w-80  h-52">
+            <div className="bg-amber-300 p-6 rounded-2xl shadow-xl text-center w-80  h-52">
                 <h2 className="text-1xl font-bold text-gray-700">📅 Calendar</h2>
                 <p className="text-1xl text-gray-600 mt-2">
                     {currentTime.toLocaleDateString("en-US", { weekday: "long" })}

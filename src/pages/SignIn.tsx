@@ -16,7 +16,7 @@ const SignUp = () => {
     const [formData, setFormData] = useState({
         email: "",
         confirmPass: "",
-        password: "",
+
     });
 
     const handleChange = (e) => {
@@ -30,15 +30,12 @@ const SignUp = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (formData.confirmPass !== formData.password) {
-            toast.error('Password does not match');
-            return;
-        } else {
 
-            const user: { password: string; email: string } = { email: formData.email, password: formData.password };
+
+            const user: { password: string; email: string } = { email: formData.email, password: formData.confirmPass };
             dispatch(loginUser(user));
             toast.success('SignIn');
-        }
+
     };
 
     useEffect(() => {
@@ -103,20 +100,20 @@ const SignUp = () => {
                                 />
                             </div>
 
-                            <div>
-                                <label className="block text-gray-700 font-semibold mb-1">Password</label>
-                                <input
-                                    type="password"
-                                    name="password"
-                                    value={formData.password}
-                                    onChange={handleChange}
-                                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brown-500"
-                                    required
-                                />
-                            </div>
+                            {/*<div>*/}
+                            {/*    <label className="block text-gray-700 font-semibold mb-1">Password</label>*/}
+                            {/*    <input*/}
+                            {/*        type="password"*/}
+                            {/*        name="password"*/}
+                            {/*        value={formData.password}*/}
+                            {/*        onChange={handleChange}*/}
+                            {/*        className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brown-500"*/}
+                            {/*        required*/}
+                            {/*    />*/}
+                            {/*</div>*/}
 
                             <div className="pb-10">
-                                <label className="block text-gray-700 font-semibold mb-1">Confirm Password</label>
+                                <label className="block text-gray-700 font-semibold mb-1"> Password</label>
                                 <input
                                     type="password"
                                     name="confirmPass"

@@ -14,18 +14,18 @@ import ProductAction from "../components/updateModel/ProductAction.tsx";
 function LogPage() {
 
     const dispatch = useDispatch();
-    const products : Product[] = useSelector((state:  RootState ) => state.product);
+    const product: Product[] = useSelector((state: RootState) => state.product);
     const [selectedField, setIsSelectedField] = useState<Product | null>(null);
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [isActionModalOpen, setIsActionModalOpen] = useState(false);
 
 
 
-    useEffect(() => {
-        if (!products || products.length === 0) {
-            dispatch(getAllProducts());
-        }
-    }, [dispatch]);
+    // useEffect(() => {
+    //     if (!products || products.length === 0) {
+    //         dispatch(getAllProducts());
+    //     }
+    // }, [dispatch]);
 
 
     function handleAddProduct(newProduct :Product) {
@@ -104,7 +104,7 @@ function LogPage() {
                 </div>
                 <div className={'h-[70vh] overflow-y-scroll custom-scrollbar'}>
                     <ProductViewContainer
-                        products={products}
+                        products={product}
                         onCardClick={openLogActionsModal}
                     />
                 </div>

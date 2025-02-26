@@ -19,7 +19,7 @@ function DataTable({ headers, data,actions= true, renderRow, handleView, handleU
         <div className="overflow-x-auto">
             {/* Table Header */}
             <div
-                className={`grid grid-cols-2 sm:grid-cols-${headers.length} gap-2 bg-brown-500 text-center font-semibold text-xs sm:text-sm text-brown-50 p-2 rounded-t-xl`}>
+                className={`grid grid-cols-2 sm:grid-cols-${headers.length} gap-2 bg-amber-600 text-center font-semibold text-xs sm:text-sm text-white p-2 rounded-t-xl`}>
                 {headers.map((header, index) => (
                     <div
                         key={index}
@@ -39,7 +39,8 @@ function DataTable({ headers, data,actions= true, renderRow, handleView, handleU
                     data.map((item, index) => (
                         <div
                             key={item.id || index}
-                            className=" bg-brown-100  table-row grid grid-cols-2 sm:grid-cols-6 gap-2 text-center bg-gray-100 font-medium text-xs sm:text-sm hover:bg-green-100 p-3 cursor-pointer rounded-lg mt-1 transition-all">
+                            className=" bg-brown-100  table-row grid grid-cols-2 sm:grid-cols-6 gap-2 text-center bg-amber-100
+                             font-medium text-xs sm:text-sm hover:bg-amber-200 p-3 cursor-pointer rounded-lg mt-1 transition-all">
 
                             {/* Render row based on passed `renderRow` function */}
                             {renderRow(item)}

@@ -30,7 +30,7 @@ function StaffWidget() {
                 {roles.map((role) => (
                     <div
                         key={role.name}
-                        className="bg-green-100 text-center py-6 rounded-lg flex flex-col items-center"
+                        className="bg-amber-300 text-center py-6 rounded-lg flex flex-col items-center"
                     >
                         <img src={role.image} alt={`${role.name} Icon`} className="mb-4" />
                         <p className="text-5xl font-bold mb-4">{role.count}</p>

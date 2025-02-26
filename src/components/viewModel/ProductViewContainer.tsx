@@ -15,7 +15,7 @@ function ProductViewContainer({ products,onCardClick }: Readonly<ProductViewCont
             {products.map((product, index) => (
                 <div
                     key={index}
-                    className="bg-white border border-gray-200 rounded-xl h-96 shadow-lg hover:shadow-xl transition-shadow cursor-pointer flex flex-col relative"
+                    className="bg-amber-100 border border-gray-200 rounded-xl h-96 shadow-lg hover:shadow-xl transition-shadow cursor-pointer flex flex-col relative"
                     onClick={() => onCardClick(product)}
                 >
                     {product.observedImage && (
@@ -26,7 +26,7 @@ function ProductViewContainer({ products,onCardClick }: Readonly<ProductViewCont
                         />
                     )}
                     <div
-                        className={`p-4 px-6 bg-green-200 flex flex-col flex-grow ${!product.observedImage ? "rounded-t-xl" : ""}`}
+                        className={`p-4 px-6 bg-amber-200 flex flex-col flex-grow ${!product.observedImage ? "rounded-t-xl" : ""}`}
                     >
                         {/* Batch Code: Left-Top Brown Box */}
                         <div

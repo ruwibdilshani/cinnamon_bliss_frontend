@@ -17,7 +17,7 @@ import UpdateCinnamonStock from "../components/updateModel/UpdateCinnamonStock.t
 
 export function StockPage() {
 
-    const cinnamonStock : CinnamonStock [] = useSelector((state: RootState) => state.cinnamonStock)
+    const cinnamonStock : CinnamonStock [] = useSelector((state: {cinnamonStock : CinnamonStock[]}) => state.cinnamonStock)
     const supplierMember : Supplier[] = useSelector((state : RootState) => state.supplier)
 
         const stockCinnamonHeaders = ['StockID', 'Supplier', 'Quantity/KG', 'Total (Rs)', 'Received Date', 'Actions'];
