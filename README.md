@@ -1,4 +1,4 @@
-# Cinnamon Bliss - Backend
+# Cinnamon Bliss - Fronend
 
 Cinnamon Bliss Management System is a web application built with React, Redux, Express, and Node.js. This system manages tea craft operations efficiently, providing a seamless user experience with a modern UI and optimized API handling. Prisma ORM, and JWT authentication.
 
