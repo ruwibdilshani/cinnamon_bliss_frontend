@@ -69,7 +69,7 @@ Ensure you have the following installed on your system:
 
 ### 1. Clone the Repository
 ```sh
-git clone https://github.com/your-repo/cinnamon-bliss.git
+git clone https://github.com/ruwibdilshani/cinnamon_bliss_frontend.git
 cd cinnamon-bliss/client
 ```
 
