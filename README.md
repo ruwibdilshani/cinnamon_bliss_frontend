@@ -48,3 +48,72 @@ export default tseslint.config({
   },
 })
 ```
+# Cinnamon Bliss - Frontend
+
+## Project Overview
+Cinnamon Bliss is a full-stack client-server application developed as part of the final coursework. This README provides setup and execution instructions for the **frontend** of the project, which is built using React with TypeScript, Redux, and Redux Thunk.
+
+## Features
+- React with TypeScript for type-safe development
+- Redux for state management
+- React Router for client-side routing
+- Axios for API communication
+- Secure authentication with JWT
+
+## Prerequisites
+Ensure you have the following installed on your system:
+- Node.js (>= 16.x)
+- npm or yarn
+
+## Installation and Setup
+
+### 1. Clone the Repository
+```sh
+git clone https://github.com/your-repo/cinnamon-bliss.git
+cd cinnamon-bliss/client
+```
+
+### 2. Install Dependencies
+```sh
+npm install
+```
+
+### 3. Set Up Environment Variables
+Create a `.env` file in the `client` directory and add the following:
+```
+REACT_APP_API_URL=http://localhost:5000/api
+```
+
+### 4. Start the Frontend Application
+```sh
+npm start
+```
+The React app will run at `http://localhost:3000`.
+
+## Project Structure
+```
+client/
+│── src/
+│   ├── components/
+│   │   ├── Navbar.tsx
+│   │   ├── ProtectedRoute.tsx
+│   ├── pages/
+│   │   ├── Home.tsx
+│   │   ├── Login.tsx
+│   │   ├── Register.tsx
+│   ├── store/
+│   │   ├── authSlice.ts
+│   │   ├── store.ts
+│   ├── services/
+│   │   ├── api.ts
+│   ├── App.tsx
+│   ├── index.tsx
+│── .env
+│── package.json
+│── tsconfig.json
+```
+
+## Running the Application
+1. Ensure the backend is running at `http://localhost:5000`
+2. Start the frontend using `npm start`
+3. Open `http://localhost:3000` in your browser
