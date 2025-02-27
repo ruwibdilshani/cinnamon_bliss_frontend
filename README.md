@@ -1,3 +1,119 @@
+# Cinnamon Bliss - Backend
+
+Cinnamon Bliss Management System is a web application built with React, Redux, Express, and Node.js. This system manages tea craft operations efficiently, providing a seamless user experience with a modern UI and optimized API handling. Prisma ORM, and JWT authentication.
+
+## 🚀 Features
+- **React & Redux Toolkit**: Efficient state management using `Slice` and `store.ts`.
+- **React Router (`react-router-dom`)**: Handles navigation with `<Navigate />` for redirection and `<Outlet />` for nested routes.
+- **Toast Notifications**: Uses `react-toastify` for user-friendly message management.
+- **Tailwind CSS**: Provides responsive and scalable styling.
+- **Cloudinary**: Used for image storage and management.
+- **Express & Node.js**: Backend API for handling requests.
+
+## 🛠️ Tech Stack
+### Frontend
+- **React**
+- **Redux Toolkit**
+- **JSX**
+- **Tailwind CSS**
+
+### Backend
+- **TypeScript (.ts files)** – A superset of JavaScript with static typing.
+- **Node.js** – Server-side JavaScript runtime.
+- **Express.js** – A lightweight web framework for handling HTTP requests.
+- **Prisma ORM** – Used to interact with the database.
+- **REST API** – Defines routes for managing RawMaterialStock and Employee entities.
+- **Async/Await** – Used for handling asynchronous database operations.
+
+This is a backend application built with **TypeScript + Express + Prisma** 🚀.
+
+## 📌 Installation & Setup
+
+### Prerequisites
+- Node.js (>= 16.x)
+- npm or yarn
+
+### Clone the Repository Frontend
+```bash
+git clone https://github.com/ruwibdilshani/cinnamon_bliss_frontend.git
+```
+
+### Clone the Repository Backend
+```bash
+git clone https://github.com/ruwibdilshani/cinnamon_bliss_api.git
+```
+
+
+### Install Dependencies
+```bash
+npm install
+# or
+yarn install
+```
+
+### Start the Development Server
+```bash
+npm start
+# or
+yarn start
+```
+## viewUI
+![Alt text](src/assets/1.png)
+
+![Alt text](src/assets/2.png)
+
+![Alt text](src/assets/3.png)
+
+![Alt text](src/assets/4.png)
+
+![Alt text](src/assets/5.png)
+
+![Alt text](src/assets/6.png)
+
+![Alt text](src/assets/7.png)
+
+![Alt text](src/assets/8.png)
+
+## 🔧 API Integration
+This project interacts with APIs using Redux `Slice` and `store.ts`. Ensure the backend server is running before making API calls.
+
+## 📷 Image Handling
+- Images are uploaded and managed via **Cloudinary**.
+- Set up Cloudinary API credentials in your `.env` file.
+
+## 🛤️ Navigation
+- Uses `react-router-dom` for page transitions.
+- `<Navigate />` handles redirection.
+- `<Outlet />` is used for nested routes.
+
+## 🎨 Styling
+- Styled using **Tailwind CSS** for a modern and responsive UI.
+
+## 💬 Notifications
+- Uses `react-toastify` to manage user messages and alerts.
+
+## 🤝 Contributing
+Pull requests are welcome! Follow these steps:
+1. Fork the repository.
+2. Create a new branch (`feature-branch-name`).
+3. Commit your changes.
+4. Push to your fork and create a PR.
+
+### 🔗 Postman documentation Links
+https://documenter.getpostman.com/view/36641894/2sAYdfqrHE
+
+---
+### 🔗 Useful Links
+- **Cloudinary**: [https://cloudinary.com/](https://cloudinary.com/)
+- **React Redux**: [https://redux.js.org/](https://redux.js.org/)
+- **Tailwind CSS**: [https://tailwindcss.com/](https://tailwindcss.com/)
+- **React Router**: [https://reactrouter.com/](https://reactrouter.com/)
+- **Prisma ORM**: [https://www.prisma.io/](https://www.prisma.io/)
+
+
+
+
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
@@ -48,72 +164,3 @@ export default tseslint.config({
   },
 })
 ```
-# Cinnamon Bliss - Frontend
-
-## Project Overview
-Cinnamon Bliss is a full-stack client-server application developed as part of the final coursework. This README provides setup and execution instructions for the **frontend** of the project, which is built using React with TypeScript, Redux, and Redux Thunk.
-
-## Features
-- React with TypeScript for type-safe development
-- Redux for state management
-- React Router for client-side routing
-- Axios for API communication
-- Secure authentication with JWT
-
-## Prerequisites
-Ensure you have the following installed on your system:
-- Node.js (>= 16.x)
-- npm or yarn
-
-## Installation and Setup
-
-### 1. Clone the Repository
-```sh
-git clone https://github.com/ruwibdilshani/cinnamon_bliss_frontend.git
-cd cinnamon-bliss/client
-```
-
-### 2. Install Dependencies
-```sh
-npm install
-```
-
-### 3. Set Up Environment Variables
-Create a `.env` file in the `client` directory and add the following:
-```
-REACT_APP_API_URL=http://localhost:5000/api
-```
-
-### 4. Start the Frontend Application
-```sh
-npm start
-```
-The React app will run at `http://localhost:3000`.
-
-## Project Structure
-```
-client/
-│── src/
-│   ├── components/
-│   │   ├── Navbar.tsx
-│   │   ├── ProtectedRoute.tsx
-│   ├── pages/
-│   │   ├── Home.tsx
-│   │   ├── Login.tsx
-│   │   ├── Register.tsx
-│   ├── store/
-│   │   ├── authSlice.ts
-│   │   ├── store.ts
-│   ├── services/
-│   │   ├── api.ts
-│   ├── App.tsx
-│   ├── index.tsx
-│── .env
-│── package.json
-│── tsconfig.json
-```
-
-## Running the Application
-1. Ensure the backend is running at `http://localhost:5000`
-2. Start the frontend using `npm start`
-3. Open `http://localhost:3000` in your browser
