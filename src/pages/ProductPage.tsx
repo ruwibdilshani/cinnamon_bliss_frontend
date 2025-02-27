@@ -9,6 +9,7 @@ import DeleteModal from "../components/DeleteModal.tsx";
 import ProductViewContainer from "../components/viewModel/ProductViewContainer.tsx";
 import AddProduct from "../components/saveModel/AddProduct.tsx";
 import ProductAction from "../components/updateModel/ProductAction.tsx";
+import {getAllCinnamonStock} from "../slice/StockSlice.ts";
 
 
 function LogPage() {
@@ -20,12 +21,12 @@ function LogPage() {
     const [isActionModalOpen, setIsActionModalOpen] = useState(false);
 
 
+    useEffect(() => {
+        if (!product || product.length === 0) {
+            dispatch(getAllProducts());
+        }
+    }, [dispatch]);
 
-    // useEffect(() => {
-    //     if (!products || products.length === 0) {
-    //         dispatch(getAllProducts());
-    //     }
-    // }, [dispatch]);
 
 
     function handleAddProduct(newProduct :Product) {

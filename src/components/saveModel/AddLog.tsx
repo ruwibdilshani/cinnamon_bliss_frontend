@@ -12,6 +12,10 @@ import {getAllProducts} from "../../slice/ProductSlice.ts";
 import {getAllEmployees} from "../../slice/EmployeeSlice.ts";
 
 
+
+
+
+
 interface AddLogProps {
     isModalOpen: boolean;
     setIsModalOpen: (isOpen: boolean) => void;
@@ -23,13 +27,17 @@ function AddLog({ isModalOpen, setIsModalOpen, onSave }: Readonly<AddLogProps>) 
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (!products || products.length === 0) {
-            dispatch(getAllProducts());
-        }
         if (!employeeMember || employeeMember.length === 0) {
             dispatch(getAllEmployees());
         }
     }, []);
+
+    useEffect(() => {
+        if (!products || products.length === 0) {
+            dispatch(getAllProducts());
+        }
+    }, []);
+
 
 
 

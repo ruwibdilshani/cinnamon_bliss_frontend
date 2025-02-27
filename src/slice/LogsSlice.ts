@@ -19,7 +19,7 @@ export const saveLog = createAsyncThunk(
             const token = state.userReducer.jwt_token; // Access the JWT token from Redux state
 
             if (!token) {
-                alert("Please log in to save log");
+
                 return rejectWithValue("Please log in to save log");
             }
 
@@ -44,7 +44,7 @@ export const updateLog = createAsyncThunk(
             const token = state.userReducer.jwt_token;
 
             if (!token) {
-                alert("Please log in to update log");
+
                 return rejectWithValue("Please log in to update log");
             }
 
@@ -69,7 +69,7 @@ export const deleteLog = createAsyncThunk(
             const token = state.userReducer.jwt_token;
 
             if (!token) {
-                alert("Please log in to delete log");
+
                 return rejectWithValue("Please log in to delete log");
             }
 
@@ -94,7 +94,7 @@ export const getAllLogs = createAsyncThunk(
             const token = state.userReducer.jwt_token;
 
             if (!token) {
-                alert("Please log in to view logs");
+
                 return rejectWithValue("Please log in to view logs");
             }
 
@@ -107,7 +107,7 @@ export const getAllLogs = createAsyncThunk(
             return response.data;
         } catch (error: any) {
             if (error.response?.status === 401) {
-                alert("Session expired. Please log in again.");
+
             }
             console.log('Error:', error);
         }
@@ -123,50 +123,50 @@ const logsSlice = createSlice({
         builder
             .addCase(saveLog.fulfilled, (state, action) => {
                 state.push(action.payload);
-                alert("Logs Update sucess");
+
             })
             .addCase(saveLog.rejected, (state, action) => {
-                alert("Logs Update Failed");
+
             })
             .addCase(saveLog.pending, (state, action) => {
-                alert("Logs Update Failed");
+
             });
         builder
             .addCase(updateLog.fulfilled, (state, action) => {
                 const index = state.findIndex((logs: Log) => logs.logID === action.payload.logID);
                 state[index] = action.payload;
-                alert("Logs Update sucess");
+
             })
             .addCase(updateLog.rejected, (state, action) => {
-                alert("Logs Update Failed");
+
             })
             .addCase(updateLog.pending, (state, action) => {
-                alert("Logs Update Failed");
+
             });
         builder
             .addCase(deleteLog.fulfilled, (state, action) => {
                 const index = state.findIndex((logs: Log) => logs.logID === action.payload);
                 state.splice(index, 1);
-                alert("Logs Deleted Successfully");
+
             })
             .addCase(deleteLog.rejected, (state, action) => {
-                alert("Logs Delete Failed");
+
             })
             .addCase(deleteLog.pending, (state, action) => {
-                alert("Logs Deleting...");
+
             });
         builder
             .addCase(getAllLogs.fulfilled, (state, action) => {
                 action.payload.forEach((logs: Log) => {
                     state.push(logs);
-                    alert("Log Fetched Successfully");
+
                 });
             })
             .addCase(getAllLogs.rejected, (state, action) => {
-                alert("Failed to fetch Logs");
+
             })
             .addCase(getAllLogs.pending, (state, action) => {
-                alert("Fetching Logs");
+
             });
 
     }});

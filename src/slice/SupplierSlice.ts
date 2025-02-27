@@ -21,7 +21,7 @@ export const saveSupplier = createAsyncThunk(
             const token = state.userReducer.jwt_token; // Access JWT token from Redux state
 
             if (!token) {
-                alert("Please log in to save supplier");
+
                 return rejectWithValue("Please log in to save supplier");
             }
 
@@ -46,7 +46,7 @@ export const updateSupplier = createAsyncThunk(
             const token = state.userReducer.jwt_token;
 
             if (!token) {
-                alert("Please log in to update supplier");
+
                 return rejectWithValue("Please log in to update supplier");
             }
 
@@ -71,7 +71,6 @@ export const deleteSupplier = createAsyncThunk(
             const token = state.userReducer.jwt_token;
 
             if (!token) {
-                alert("Please log in to delete supplier");
                 return rejectWithValue("Please log in to delete supplier");
             }
 
@@ -96,7 +95,6 @@ export const getAllSuppliers = createAsyncThunk(
             const token = state.userReducer.jwt_token;
 
             if (!token) {
-                alert("Please log in to view suppliers");
                 return rejectWithValue("Please log in to view suppliers");
             }
 
@@ -128,50 +126,38 @@ const supplierSlice = createSlice({
         builder
             .addCase(saveSupplier.fulfilled, (state, action) => {
                 state.push(action.payload);
-                alert("Supplier Added Successfully");
             })
             .addCase(saveSupplier.rejected, (state, action) => {
-                alert("Supplier Added Failed");
             })
             .addCase(saveSupplier.pending, (state, action) => {
-                alert("Supplier Adding...");
             });
         builder
             .addCase(updateSupplier.fulfilled, (state, action) => {
             const index = state.findIndex((supplier:Supplier) => supplier.supplierID === action.payload.supplierID);
             state[index] = action.payload;
-            alert("Supplier Updated Successfully");
             })
             .addCase(updateSupplier.rejected, (state, action) => {
-                alert("Supplier Update Failed");
             })
             .addCase(updateSupplier.pending, (state, action) => {
-                alert("Supplier Updating...");
             });
         builder
             .addCase(deleteSupplier.fulfilled, (state, action) => {
                 const index = state.findIndex((supplier: Supplier) => supplier.supplierID === action.payload);
                 state.splice(index, 1);
-                alert("Supplier Deleted Successfully");
             })
             .addCase(deleteSupplier.rejected, (state, action) => {
-                alert("Supplier Delete Failed");
             })
             .addCase(deleteSupplier.pending, (state, action) => {
-                alert("Supplier Deleting...");
             });
         builder
             .addCase(getAllSuppliers.fulfilled, (state, action) => {
                 action.payload.forEach((supplier: Supplier) => {
                     state.push(supplier);
-                    alert("Supplier Loaded Successfully");
                 });
             })
             .addCase(getAllSuppliers.rejected, (state, action) => {
-                    alert("Supplier Loading Failed");
             })
             .addCase(getAllSuppliers.pending, (state, action) => {
-                    alert("Supplier Loading...");
             });
     }
 });

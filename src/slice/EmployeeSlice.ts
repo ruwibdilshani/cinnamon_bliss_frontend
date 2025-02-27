@@ -24,9 +24,11 @@ export const saveEmployee = createAsyncThunk(
             const token = state.userReducer.jwt_token; // Access JWT token from Redux state
 
             if (!token) {
-                alert("Please log in to save employee");
+
                 return rejectWithValue("Please log in to save employee");
             }
+
+            console.log("EmployeeSlice",employee);
 
             const response = await api.post('/add', employee, {
                 headers: {
@@ -49,7 +51,7 @@ export const updateEmployee = createAsyncThunk(
             const token = state.userReducer.jwt_token;
 
             if (!token) {
-                alert("Please log in to update employee");
+
                 return rejectWithValue("Please log in to update employee");
             }
 
@@ -100,7 +102,6 @@ export const getAllEmployees = createAsyncThunk(
             const token = state.userReducer.jwt_token;
 
             if (!token) {
-                alert("Please log in to view employees");
                 return rejectWithValue("Please log in to view employees");
             }
 
@@ -113,7 +114,7 @@ export const getAllEmployees = createAsyncThunk(
             return response.data;
         } catch (error: any) {
             if (error.response?.status === 401) {
-                alert("Session expired. Please log in again.");
+
             }
             return console.log('Error:', error);
         }
@@ -133,13 +134,13 @@ const employeeSlice =  createSlice({
         builder
             .addCase(saveEmployee.fulfilled, (state, action) => {
                 state.push(action.payload);
-                alert("Employee Added Successfully")
+
             })
             .addCase(saveEmployee.rejected, (state, action) => {
-                alert("Error Occurred")
+
             })
             .addCase(saveEmployee.pending, (state, action) => {
-                alert("Saving Employee")
+
             });
         builder
             .addCase(updateEmployee.fulfilled, (state, action) => {
@@ -149,34 +150,34 @@ const employeeSlice =  createSlice({
                 }
             })
             .addCase(updateEmployee.rejected, (state, action) => {
-                alert("Error Occurred")
+
             })
             .addCase(updateEmployee.pending, (state, action) => {
-                alert("Updating Employee")
+
             });
         builder
             .addCase(deleteEmployee.fulfilled, (state, action) => {
                 return state.filter((employee) => employee.employeeID !== action.payload.employeeID);
             })
             .addCase(deleteEmployee.rejected, (state, action) => {
-                 alert("Error Occurred")
+
             })
             .addCase(deleteEmployee.pending, (state, action) => {
-                 alert("Deleting Employee")
+
             });
 
         builder
             .addCase(getAllEmployees.fulfilled, (state, action) => {
                 action.payload.forEach((employee: Employee) => {
                     state.push(employee);
-                    alert("Employees Fetched Successfully")
+
                 });
             })
             .addCase(getAllEmployees.rejected, (state, action) => {
-                alert("Error fetching employees");
+
             })
             .addCase(getAllEmployees.pending, (state, action) => {
-                alert("Fetching employees...");
+
             });
     }
 });

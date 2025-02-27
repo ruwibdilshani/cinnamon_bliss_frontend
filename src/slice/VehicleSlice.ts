@@ -18,7 +18,6 @@ export const saveVehicle = createAsyncThunk(
             const token = state.userReducer.jwt_token; // Access the JWT token from Redux state
 
             if (!token) {
-                alert("Please log in to save vehicle");
                 return rejectWithValue("Please log in to save vehicle");
             }
 
@@ -43,7 +42,6 @@ export const updateVehicle = createAsyncThunk(
             const token = state.userReducer.jwt_token;
 
             if (!token) {
-                alert("Please log in to update vehicle");
                 return rejectWithValue("Please log in to update vehicle");
             }
 
@@ -68,7 +66,6 @@ export const deleteVehicle = createAsyncThunk(
             const token = state.userReducer.jwt_token;
 
             if (!token) {
-                alert("Please log in to delete vehicle");
                 return rejectWithValue("Please log in to delete vehicle");
             }
 
@@ -93,7 +90,6 @@ export const getAllVehicles = createAsyncThunk(
             const token = state.userReducer.jwt_token;
 
             if (!token) {
-                alert("Please log in to view vehicles");
                 return rejectWithValue("Please log in to view vehicles");
             }
 
@@ -128,7 +124,6 @@ const vehicleSlice = createSlice({
             console.log('Vehicle reject Successfully');
             })
             .addCase(saveVehicle.pending, (state, action) => {
-                alert("Vehicle Added Successfully");
             });
         builder
             .addCase(updateVehicle.fulfilled, (state, action) => {
@@ -141,7 +136,6 @@ const vehicleSlice = createSlice({
                 console.log('Vehicle Update Failed');
             })
             .addCase(updateVehicle.pending, (state, action) => {
-                alert("Vehicle Updated Successfully");
             });
         builder
             .addCase(deleteVehicle.fulfilled, (state, action) => {
@@ -151,21 +145,18 @@ const vehicleSlice = createSlice({
                 console.log('Vehicle Delete Failed');
             })
             .addCase(deleteVehicle.pending, (state, action) => {
-                alert("Vehicle Deleted Successfully");
             });
 
         builder
             .addCase(getAllVehicles.fulfilled, (state, action) => {
                 action.payload.forEach((vehicle: Vehicle) => {
                     state.push(vehicle);
-                    alert("Vehicle Fetched Successfully");
                 });
             })
             .addCase(getAllVehicles.rejected, (state, action) => {
                 console.log('Vehicle reject Successfully');
             })
             .addCase(getAllVehicles.pending, (state, action) => {
-                alert("Vehicle Fetched Successfully");
             });
 
 

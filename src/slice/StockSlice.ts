@@ -18,7 +18,7 @@ export const saveCinnamonStock = createAsyncThunk(
             const token = state.userReducer.jwt_token; // Access JWT token from Redux state
 
             if (!token) {
-                alert("Please log in to save cinnamon stock");
+
                 return rejectWithValue("Please log in to save cinnamon stock");
             }
 
@@ -43,7 +43,7 @@ export const updateCinnamonStock = createAsyncThunk(
             const token = state.userReducer.jwt_token;
 
             if (!token) {
-                alert("Please log in to update cinnamon stock");
+
                 return rejectWithValue("Please log in to update cinnamon stock");
             }
 
@@ -68,7 +68,6 @@ export const deleteCinnamonStock = createAsyncThunk(
             const token = state.userReducer.jwt_token;
 
             if (!token) {
-                alert("Please log in to delete cinnamon stock");
                 return rejectWithValue("Please log in to delete cinnamon stock");
             }
 
@@ -93,7 +92,6 @@ export const getAllCinnamonStock = createAsyncThunk(
             const token = state.userReducer.jwt_token;
 
             if (!token) {
-                alert("Please log in to view cinnamon stock");
                 return rejectWithValue("Please log in to view cinnamon stock");
             }
 
@@ -106,7 +104,7 @@ export const getAllCinnamonStock = createAsyncThunk(
             return response.data;
         } catch (error: any) {
             if (error.response?.status === 401) {
-                alert("Session expired. Please log in again.");
+
             }
             return console.log('Error:', error);
         }
@@ -125,10 +123,10 @@ export const cinnamonStockSlice = createSlice({
             })
             .addCase(saveCinnamonStock.fulfilled, (state, action) => {
                 state.push(action.payload);
-                alert("Cinnamon Stock Added Successfully");
+
             })
             .addCase(saveCinnamonStock.rejected, (state, action) => {
-                alert("Stock Update Failed");
+
             });
         builder
             .addCase(updateCinnamonStock.fulfilled, (state, action) => {
@@ -136,33 +134,33 @@ export const cinnamonStockSlice = createSlice({
                 state[index] = action.payload;
             })
             .addCase(updateCinnamonStock.rejected, (state, action) => {
-                alert("Stock Update Failed");
+
             })
             .addCase(updateCinnamonStock.pending, (state, action) => {
-                alert("Stock Updating...");
+
             });
         builder
             .addCase(deleteCinnamonStock.fulfilled, (state, action) => {
                 return state.filter((stock) => stock.stockID !== action.payload.stockID);
             })
             .addCase(deleteCinnamonStock.rejected, (state, action) => {
-                alert("Stock Delete Failed");
+
             })
             .addCase(deleteCinnamonStock.pending, (state, action) => {
-                alert("Stock Deleting...");
+
             });
         builder
             .addCase(getAllCinnamonStock.fulfilled, (state, action) => {
                 action.payload.forEach((stock: CinnamonStock) => {
                     state.push(stock);
-                    alert("Stock Fetched Successfully");
+
                 });
             })
             .addCase(getAllCinnamonStock.rejected, (state, action) => {
-                alert("Stock Fetch Failed");
+
             })
             .addCase(getAllCinnamonStock.pending, (state, action) => {
-                alert("Stock Fetching...");
+
             });
     }
 });

@@ -5,9 +5,9 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "../store/store.tsx";
 import {CinnamonStock} from "../model/CinnamonStock.ts";
 import {Product} from "../model/Product.ts";
-import {useEffect} from "react";
-import {getAllCinnamonStock} from "../slice/StockSlice.ts";
-import {getAllProducts} from "../slice/ProductSlice.ts";
+// import {useEffect} from "react";
+// import {getAllCinnamonStock} from "../slice/StockSlice.ts";
+// import {getAllProducts} from "../slice/ProductSlice.ts";
 
 interface MaterialProcessChartProps {
     isModel : string
@@ -16,20 +16,20 @@ interface MaterialProcessChartProps {
 
 function MaterialProcessChart({isModel,isType}:MaterialProcessChartProps) {
     const cinnamonStock: CinnamonStock[] = useSelector((state: RootState) => state.cinnamonStock);
-    const product: Product[] = useSelector((state: {product : Product[]}) => state.product);
-    const dispatch = useDispatch<AppDispatch>();
-
-    useEffect(() => {
-        if (!cinnamonStock || cinnamonStock.length === 0) {
-            dispatch(getAllCinnamonStock());
-        }
-    }, [dispatch,cinnamonStock]);
-
-    useEffect(() => {
-        if (!product || product.length === 0) {
-            dispatch(getAllProducts());
-        }
-    }, [dispatch]);
+    const product: Product[] = useSelector((state: RootState) => state.product);
+ //   const dispatch = useDispatch<AppDispatch>();
+    //
+    // useEffect(() => {
+    //     if (!cinnamonStock || cinnamonStock.length === 0) {
+    //         dispatch(getAllCinnamonStock());
+    //     }
+    // }, [dispatch,cinnamonStock]);
+    //
+    // useEffect(() => {
+    //     if (!product || product.length === 0) {
+    //         dispatch(getAllProducts());
+    //     }
+    // }, [dispatch,product]);
 
 
 
@@ -108,7 +108,7 @@ function MaterialProcessChart({isModel,isType}:MaterialProcessChartProps) {
    if (isType === 'product') {
        // Group crops by category and calculate counts
        const productDta = product.reduce<{ [key: string]: number }>((acc, material) => {
-           acc[material.quality] = (acc[material.quality] || 0) + 10;
+           acc[material.name] = (acc[material.price] || 0) + 10;
            return acc;
        }, {});
 

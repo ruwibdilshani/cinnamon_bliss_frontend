@@ -30,6 +30,27 @@ function AddEmployee({ isModalOpen, setIsModalOpen, onSave }: Readonly<AddEmploy
         postalCode: "",
     });
 
+    const clearFields = () => {
+        setFormData({
+            firstName: "",
+            lastName: "",
+            role: "",
+            joinedDate: "",
+            gender: "",
+            dob: "",
+            contactNumber: "",
+            email: "",
+            streetAddress: "",
+            addressLine2: "",
+            country: "",
+            province: "",
+            city: "",
+            postalCode: "",
+        });
+    };
+
+
+
     function handleInputChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
@@ -68,6 +89,7 @@ function AddEmployee({ isModalOpen, setIsModalOpen, onSave }: Readonly<AddEmploy
 
         console.log("Add",newEmployees);
         onSave(newEmployees);
+        clearFields();
         setIsModalOpen(false);
 
     }

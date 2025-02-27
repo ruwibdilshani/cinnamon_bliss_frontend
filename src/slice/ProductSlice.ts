@@ -20,7 +20,7 @@ export const saveProduct = createAsyncThunk(
             const token = state.userReducer.jwt_token; // Access JWT token from Redux state
 
             if (!token) {
-                alert("Please log in to save product");
+
                 return rejectWithValue("Please log in to save product");
             }
 
@@ -45,7 +45,7 @@ export const updateProduct = createAsyncThunk(
             const token = state.userReducer.jwt_token;
 
             if (!token) {
-                alert("Please log in to update product");
+
                 return rejectWithValue("Please log in to update product");
             }
 
@@ -70,7 +70,6 @@ export const deleteProduct = createAsyncThunk(
             const token = state.userReducer.jwt_token;
 
             if (!token) {
-                alert("Please log in to delete product");
                 return rejectWithValue("Please log in to delete product");
             }
 
@@ -95,7 +94,6 @@ export const getAllProducts = createAsyncThunk(
             const token = state.userReducer.jwt_token;
 
             if (!token) {
-                alert("Please log in to view products");
                 return rejectWithValue("Please log in to view products");
             }
 
@@ -108,7 +106,6 @@ export const getAllProducts = createAsyncThunk(
             return response.data;
         } catch (error: any) {
             if (error.response?.status === 401) {
-                alert("Session expired. Please log in again.");
             }
             return console.log('Error:', error);
         }
@@ -149,7 +146,7 @@ export const productSlice = createSlice({
                 console.log('Product reject Successfully');
             })
             .addCase(deleteProduct.pending, (state, action) => {
-                alert("Product Delete Failed");
+
             })
             .addCase(deleteProduct.fulfilled, (state, action) => {
                 return state.filter((product) => product.batchCode !== action.payload.batchCode);
@@ -161,7 +158,7 @@ export const productSlice = createSlice({
             .addCase(getAllProducts.fulfilled, (state, action) => {
                 action.payload.forEach((product: Product) => {
                     state.push(product);
-                    alert("product Fetched Successfully");
+
                 });
             })
             .addCase(getAllProducts.pending, (state, action) => {
